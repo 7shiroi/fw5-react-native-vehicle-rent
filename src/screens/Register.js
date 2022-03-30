@@ -3,15 +3,15 @@ import React from 'react';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import Container from '../components/Container';
-import {LOGINBG} from './src/assets/images';
+import {REGISTERBG} from '../assets/images';
 import IconFA from 'react-native-vector-icons/FontAwesome';
-import globalStyle from './src/assets/style';
+import globalStyle from '../assets/style';
 
 const Register = () => {
   return (
     <ImageBackground
       style={globalStyle.vh100}
-      source={LOGINBG}
+      source={REGISTERBG}
       imageStyle={globalStyle.darkenedBg}>
       <Container style={styles.container}>
         <View>

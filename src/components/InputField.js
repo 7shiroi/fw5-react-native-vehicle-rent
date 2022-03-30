@@ -1,13 +1,20 @@
 import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 
-const InputField = ({placeholder, keyboardType, name, ...props}) => {
+const InputField = ({
+  placeholder,
+  keyboardType = 'default',
+  name,
+  value = null,
+  ...props
+}) => {
   return (
     <TextInput
       style={styles.transparentInput}
       name={name}
       keyboardType={keyboardType}
       placeholder={placeholder}
+      value={value}
       {...props}
     />
   );

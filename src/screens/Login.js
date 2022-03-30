@@ -1,13 +1,13 @@
 import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import React from 'react';
 import Container from '../components/Container';
-import globalStyle from './src/assets/style';
+import globalStyle from '../assets/style';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import InputField from '../components/InputField';
-import {LOGINBG} from './src/assets/images';
+import {LOGINBG} from '../assets/images';
 import Button from '../components/Button';
 
-const login = () => {
+const Login = () => {
   return (
     <ImageBackground
       style={globalStyle.vh100}
@@ -59,7 +59,7 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
