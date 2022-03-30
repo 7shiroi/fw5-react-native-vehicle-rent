@@ -18,16 +18,40 @@ import HomeSearch from './src/components/HomeSearch';
 import NavFooter from './src/components/NavFooter';
 import Layout from './src/components/Layout';
 import RecommendList from './src/components/RecommendList';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from './src/screens/Home';
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
 
 const App = () => {
+  const Stack = createNativeStackNavigator();
   return (
-    <>
-      <Layout>
-        <HomeHeader />
-        <HomeSearch />
-        <RecommendList />
-      </Layout>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </NavigationContainer>
   );
 };
 
