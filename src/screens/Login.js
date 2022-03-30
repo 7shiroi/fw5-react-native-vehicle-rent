@@ -1,10 +1,10 @@
 import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import React from 'react';
 import Container from '../components/Container';
-import globalStyle from './src/assets/style';
+import globalStyle from '../src/assets/style';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import InputField from '../components/InputField';
-import {LOGINBG} from './src/assets/images';
+import {LOGINBG} from '../src/assets/images';
 import Button from '../components/Button';
 
 const login = () => {
