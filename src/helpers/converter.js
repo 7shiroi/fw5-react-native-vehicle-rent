@@ -4,3 +4,7 @@ export const dateToString = (
 ) => {
   return date.toLocaleDateString('en-US', options);
 };
+
+export const stringToIdr = string => {
+  return Number(string).toLocaleString('id-ID');
+};
