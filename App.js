@@ -25,14 +25,25 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Search from './src/screens/Search';
 import BottomTab from './src/screens/BottomTab';
-import {LOGIN_NAV, REGISTER_NAV} from './src/helpers/utils';
+import {
+  COLOR_ACCENT,
+  COLOR_GREY,
+  LOGIN_NAV,
+  REGISTER_NAV,
+} from './src/helpers/utils';
+import UpdateProfile from './src/screens/UpdateProfile';
+import {extendTheme, NativeBaseProvider} from 'native-base';
 
 const App = () => {
   const AuthStack = createNativeStackNavigator();
   const MainStack = createNativeStackNavigator();
+
+  const theme = extendTheme({});
+
   return (
-    <NavigationContainer>
-      {/* <AuthStack.Navigator>
+    <NativeBaseProvider theme={theme}>
+      <NavigationContainer>
+        {/* <AuthStack.Navigator>
         <AuthStack.Screen
           name={LOGIN_NAV}
           component={Login}
@@ -48,14 +59,20 @@ const App = () => {
           }}
         />
       </AuthStack.Navigator> */}
-      <MainStack.Navigator>
-        <MainStack.Screen
-          options={{headerShown: false}}
-          name="Bottom Tab"
-          component={BottomTab}
-        />
-      </MainStack.Navigator>
-    </NavigationContainer>
+        <MainStack.Navigator>
+          <MainStack.Screen
+            options={{headerShown: false}}
+            name="Bottom Tab"
+            component={BottomTab}
+          />
+          <MainStack.Screen
+            options={{headerShown: true}}
+            name="Update Profile"
+            component={UpdateProfile}
+          />
+        </MainStack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
 
