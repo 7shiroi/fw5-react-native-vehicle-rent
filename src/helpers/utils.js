@@ -9,5 +9,6 @@ export const FORGOT_PASSWORD_NAV = 'Forgot Password';
 export const MAIN_NAV = 'Main Menu';
 export const HOME_NAV = 'Home';
 export const PROFILE_NAV = 'Profile';
+export const UPDATE_PROFILE_NAV = 'Update Profile';
 export const SEARCH_NAV = 'Search';
 export const CATEGORY_NAV = 'Category';
