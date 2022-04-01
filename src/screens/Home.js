@@ -7,11 +7,11 @@ import RecommendList from '../components/RecommendList';
 
 const Home = () => {
   return (
-    <Layout>
+    <>
       <HomeHeader />
       <HomeSearch />
       <RecommendList />
-    </Layout>
+    </>
   );
 };
 

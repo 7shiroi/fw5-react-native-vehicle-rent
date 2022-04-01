@@ -73,9 +73,9 @@ const DATA = [
 
 const Search = () => {
   return (
-    <LayoutNoScroll>
-      <FlatList data={DATA} renderItem={obj => <ItemCard data={obj.item} />} />
-    </LayoutNoScroll>
+    // <LayoutNoScroll>
+    <FlatList data={DATA} renderItem={obj => <ItemCard data={obj.item} />} />
+    // {/* </LayoutNoScroll> */}
   );
 };
 

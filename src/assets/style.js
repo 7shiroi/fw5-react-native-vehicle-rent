@@ -49,6 +49,21 @@ module.exports = StyleSheet.create({
   my5: {
     marginVertical: 25,
   },
+  mx1: {
+    marginHorizontal: 5,
+  },
+  mx2: {
+    marginHorizontal: 10,
+  },
+  mx3: {
+    marginHorizontal: 15,
+  },
+  mx4: {
+    marginHorizontal: 20,
+  },
+  mx5: {
+    marginHorizontal: 25,
+  },
   pb1: {
     paddingBottom: 5,
   },
@@ -94,6 +109,21 @@ module.exports = StyleSheet.create({
   py5: {
     paddingVertical: 25,
   },
+  px1: {
+    paddingHorizontal: 5,
+  },
+  px2: {
+    paddingHorizontal: 10,
+  },
+  px3: {
+    paddingHorizontal: 15,
+  },
+  px4: {
+    paddingHorizontal: 20,
+  },
+  px5: {
+    paddingHorizontal: 25,
+  },
   gap1: {
     width: 5,
   },
@@ -133,5 +163,8 @@ module.exports = StyleSheet.create({
   },
   flexRow: {
     flexDirection: 'row',
+  },
+  flex1: {
+    flex: 1,
   },
 });

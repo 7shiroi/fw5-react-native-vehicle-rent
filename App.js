@@ -24,41 +24,37 @@ import Home from './src/screens/Home';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Search from './src/screens/Search';
+import BottomTab from './src/screens/BottomTab';
+import {LOGIN_NAV, REGISTER_NAV} from './src/helpers/utils';
 
 const App = () => {
-  const Stack = createNativeStackNavigator();
+  const AuthStack = createNativeStackNavigator();
+  const MainStack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Search"
-          component={Search}
+      {/* <AuthStack.Navigator>
+        <AuthStack.Screen
+          name={LOGIN_NAV}
+          component={Login}
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="Home"
-          component={Home}
+        <AuthStack.Screen
+          name={REGISTER_NAV}
+          component={Register}
           options={{
             headerShown: false,
           }}
         />
-      </Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{
-          headerShown: false,
-        }}
-      />
+      </AuthStack.Navigator> */}
+      <MainStack.Navigator>
+        <MainStack.Screen
+          options={{headerShown: false}}
+          name="Bottom Tab"
+          component={BottomTab}
+        />
+      </MainStack.Navigator>
     </NavigationContainer>
   );
 };
