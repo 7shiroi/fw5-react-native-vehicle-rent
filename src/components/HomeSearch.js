@@ -33,7 +33,7 @@ const HomeSearch = () => {
         <InputField
           name="date"
           placeholder="Search Date"
-          onPressIn={handleShowDatePicker}
+          onFocus={handleShowDatePicker}
           value={dateChanged ? dateToString(date) : ''}
         />
         {/* <RNDateTimePicker mode="date" value={new Date()} /> */}

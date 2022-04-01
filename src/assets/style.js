@@ -131,4 +131,7 @@ module.exports = StyleSheet.create({
   bgGrey: {
     backgroundColor: '#EEEEEE',
   },
+  flexRow: {
+    flexDirection: 'row',
+  },
 });

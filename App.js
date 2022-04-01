@@ -23,34 +23,51 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './src/screens/Home';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
+import Search from './src/screens/Search';
+import BottomTab from './src/screens/BottomTab';
 
 const App = () => {
-  const Stack = createNativeStackNavigator();
+  const AuthStack = createNativeStackNavigator();
+  const MainStack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      {/* <AuthStack.Navigator>
+        <AuthStack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <AuthStack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </AuthStack.Navigator> */}
+      <MainStack.Navigator>
+        {/* <MainStack.Screen
           name="Home"
           component={Home}
           options={{
             headerShown: false,
           }}
         />
-      </Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{
-          headerShown: false,
-        }}
-      />
+        <MainStack.Screen
+          name="Search"
+          component={Search}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
+        <MainStack.Screen
+          options={{headerShown: false}}
+          name="Main Menu"
+          component={BottomTab}
+        />
+      </MainStack.Navigator>
     </NavigationContainer>
   );
 };
