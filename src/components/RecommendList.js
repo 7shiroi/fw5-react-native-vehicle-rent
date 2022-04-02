@@ -1,10 +1,19 @@
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import Container from './Container';
 import IconFa from 'react-native-vector-icons/FontAwesome';
 import globalStyle from '../assets/style';
 import {DUMMY1, DUMMY2, HOMEHEADER} from '../assets/images/index';
 import dummyImage from '../assets/images/dummy1.png';
+import {useNavigation} from '@react-navigation/native';
+import {ORDER_NAV} from '../helpers/utils';
 
 const data = [
   {id: 1, image: DUMMY2},
@@ -12,11 +21,14 @@ const data = [
 ];
 
 const RecommendList = () => {
+  const navigate = useNavigation();
   const RecommendItem = ({image, ...props}) => {
     return (
-      <View style={styles.imageItem}>
+      <TouchableOpacity
+        style={styles.imageItem}
+        onPress={() => navigate.push(ORDER_NAV)}>
         <Image source={image} />
-      </View>
+      </TouchableOpacity>
     );
   };
 
