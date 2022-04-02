@@ -29,10 +29,12 @@ import {
   COLOR_ACCENT,
   COLOR_GREY,
   LOGIN_NAV,
+  ORDER_NAV,
   REGISTER_NAV,
 } from './src/helpers/utils';
 import UpdateProfile from './src/screens/UpdateProfile';
 import {extendTheme, NativeBaseProvider} from 'native-base';
+import Order from './src/screens/Order';
 
 const App = () => {
   const AuthStack = createNativeStackNavigator();
@@ -69,6 +71,11 @@ const App = () => {
             options={{headerShown: true}}
             name="Update Profile"
             component={UpdateProfile}
+          />
+          <MainStack.Screen
+            options={{headerShown: false}}
+            name={ORDER_NAV}
+            component={Order}
           />
         </MainStack.Navigator>
       </NavigationContainer>

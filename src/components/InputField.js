@@ -6,11 +6,12 @@ const InputField = ({
   keyboardType = 'default',
   name,
   value = null,
+  style = '',
   ...props
 }) => {
   return (
     <TextInput
-      style={styles.transparentInput}
+      style={[styles.transparentInput, style]}
       name={name}
       keyboardType={keyboardType}
       placeholder={placeholder}
