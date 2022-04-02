@@ -4,14 +4,16 @@ import globalStyles from '../assets/style';
 import OrderHeader from '../components/OrderHeader';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
-import {COLOR_ACCENT, COLOR_PRIMARY} from '../helpers/utils';
+import {COLOR_ACCENT, COLOR_PRIMARY, PAYMENT_NAV} from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {dateToString} from '../helpers/converter';
 import {Select} from 'native-base';
 import Button from '../components/Button';
+import {useNavigation} from '@react-navigation/native';
 
 const Order = () => {
+  const navigate = useNavigation();
   const [qty, setQty] = useState(1);
   const [rentDuration, setRentDuration] = useState('1');
   const [date, setDate] = useState(new Date());
@@ -104,7 +106,12 @@ const Order = () => {
             <Select.Item label="7 Day" value="7" />
           </Select>
         </View>
-        <Button style={[globalStyles.py3]} color={COLOR_ACCENT}>
+        <Button
+          onPress={() => {
+            navigate.push(PAYMENT_NAV);
+          }}
+          style={[globalStyles.py3]}
+          color={COLOR_ACCENT}>
           <Text style={styles.titleText}>Book Now</Text>
         </Button>
       </View>
