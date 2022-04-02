@@ -13,3 +13,4 @@ export const UPDATE_PROFILE_NAV = 'Update Profile';
 export const SEARCH_NAV = 'Search';
 export const CATEGORY_NAV = 'Category';
 export const ORDER_NAV = 'Order';
+export const PAYMENT_NAV = 'Payment';

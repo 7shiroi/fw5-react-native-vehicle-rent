@@ -22,7 +22,9 @@ const OrderHeader = ({isFavorite = false, rating = 0}) => {
           style={[styles.headerContainer, globalStyles.mx4, globalStyles.my5]}>
           <IconFA name="chevron-left" size={20} style={globalStyles.flex1} />
           <LinearGradient
-            colors={['#006778', '#00ADB5']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={['#00ADB5', '#006778']}
             style={[styles.rating, globalStyles.mx3]}>
             <Text style={styles.ratingText}>{rating}</Text>
           </LinearGradient>
