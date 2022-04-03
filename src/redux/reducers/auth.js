@@ -1,7 +1,8 @@
-import {AUTH_LOGIN, AUTH_LOGOUT} from '../../helpers/utils';
+import {AUTH_GET_PROFILE, AUTH_LOGIN, AUTH_LOGOUT} from '../../helpers/utils';
 
 const initialState = {
   token: null,
+  userData: {},
 };
 
 const auth = (state = initialState, action) => {
@@ -11,7 +12,11 @@ const auth = (state = initialState, action) => {
       return {...state};
     }
     case AUTH_LOGOUT: {
-      state.token = null;
+      state = initialState;
+      return {...state};
+    }
+    case AUTH_GET_PROFILE: {
+      state.userData = action.payload;
       return {...state};
     }
     default: {
