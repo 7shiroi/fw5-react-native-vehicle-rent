@@ -37,56 +37,20 @@ import UpdateProfile from './src/screens/UpdateProfile';
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import Order from './src/screens/Order';
 import Payment from './src/screens/Payment';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import reduxStore from './src/redux/store';
+import Routes from './src/screens/Routes';
 
 const App = () => {
-  const AuthStack = createNativeStackNavigator();
-  const MainStack = createNativeStackNavigator();
-
-  const theme = extendTheme({});
+  const {store, persistor} = reduxStore();
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        {/* <AuthStack.Navigator>
-        <AuthStack.Screen
-          name={LOGIN_NAV}
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <AuthStack.Screen
-          name={REGISTER_NAV}
-          component={Register}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </AuthStack.Navigator> */}
-        <MainStack.Navigator>
-          <MainStack.Screen
-            options={{headerShown: false}}
-            name="Bottom Tab"
-            component={BottomTab}
-          />
-          <MainStack.Screen
-            options={{headerShown: true}}
-            name="Update Profile"
-            component={UpdateProfile}
-          />
-          <MainStack.Screen
-            options={{headerShown: false}}
-            name={ORDER_NAV}
-            component={Order}
-          />
-          <MainStack.Screen
-            options={{headerShown: false}}
-            name={PAYMENT_NAV}
-            component={Payment}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Routes />
+      </PersistGate>
+    </Provider>
   );
 };
 

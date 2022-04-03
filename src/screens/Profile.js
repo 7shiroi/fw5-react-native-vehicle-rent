@@ -5,11 +5,23 @@ import {PROFILE} from '../assets/images';
 import globalStyle from '../assets/style';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import Button from '../components/Button';
-import {COLOR_ACCENT, UPDATE_PROFILE_NAV} from '../helpers/utils';
+import {
+  AUTH_LOGOUT,
+  COLOR_ACCENT,
+  RESET_MESSAGE_STATE,
+  UPDATE_PROFILE_NAV,
+} from '../helpers/utils';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 const Profile = () => {
   const navigate = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch({type: AUTH_LOGOUT});
+    dispatch({type: RESET_MESSAGE_STATE});
+  };
   return (
     <View style={globalStyle.flex1}>
       <View
@@ -52,7 +64,7 @@ const Profile = () => {
         </Button>
       </View>
       <View style={[globalStyle.bgSecondary, globalStyle.px4, globalStyle.py3]}>
-        <Button color={COLOR_ACCENT}>
+        <Button color={COLOR_ACCENT} onPress={handleLogout}>
           <Text>Logout</Text>
         </Button>
       </View>
