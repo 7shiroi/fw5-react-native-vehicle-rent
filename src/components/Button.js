@@ -1,7 +1,7 @@
-import {StyleSheet, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-const Button = ({children, onPress, color}) => {
+const Button = ({children, onPress, color, buttonStyle = null}) => {
   const styles = StyleSheet.create({
     btn: {
       backgroundColor: color,
@@ -13,9 +13,9 @@ const Button = ({children, onPress, color}) => {
     },
   });
   return (
-    <TouchableHighlight onPress={onPress}>
-      <View style={styles.btn}>{children}</View>
-    </TouchableHighlight>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.btn, buttonStyle]}>{children}</View>
+    </TouchableOpacity>
   );
 };
 

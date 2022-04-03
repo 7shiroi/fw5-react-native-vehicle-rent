@@ -1,22 +1,36 @@
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import Container from './Container';
 import IconFa from 'react-native-vector-icons/FontAwesome';
 import globalStyle from '../assets/style';
 import {DUMMY1, DUMMY2, HOMEHEADER} from '../assets/images/index';
 import dummyImage from '../assets/images/dummy1.png';
-
-const data = [
-  {id: 1, image: DUMMY2},
-  {id: 2, image: DUMMY1},
-];
+import {useNavigation} from '@react-navigation/native';
+import {ORDER_NAV, TOGGLE_LOADING} from '../helpers/utils';
+import {useDispatch, useSelector} from 'react-redux';
+import {getPopularVehiclesAction} from '../redux/actions/vehicles';
 
 const RecommendList = () => {
+  const navigate = useNavigation();
+  const vehicles = useSelector(state => state.vehicles);
+
   const RecommendItem = ({image, ...props}) => {
     return (
-      <View style={styles.imageItem}>
-        <Image source={image} />
-      </View>
+      <TouchableOpacity
+        style={styles.imageItem}
+        onPress={() => navigate.push(ORDER_NAV)}>
+        <Image
+          source={image ? {uri: image} : DUMMY1}
+          style={styles.imageItemStyle}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -33,7 +47,7 @@ const RecommendList = () => {
       <FlatList
         horizontal={true}
         keyExtractor={obj => obj.id}
-        data={data}
+        data={vehicles.vehiclesData}
         renderItem={obj => {
           return <RecommendItem image={obj.item.image} />;
         }}
@@ -54,6 +68,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageItem: {
+    width: 264,
+    height: 168,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageItemStyle: {
     width: 264,
     height: 168,
   },

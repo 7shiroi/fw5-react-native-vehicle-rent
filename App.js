@@ -25,50 +25,32 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Search from './src/screens/Search';
 import BottomTab from './src/screens/BottomTab';
+import {
+  COLOR_ACCENT,
+  COLOR_GREY,
+  LOGIN_NAV,
+  ORDER_NAV,
+  PAYMENT_NAV,
+  REGISTER_NAV,
+} from './src/helpers/utils';
+import UpdateProfile from './src/screens/UpdateProfile';
+import {extendTheme, NativeBaseProvider} from 'native-base';
+import Order from './src/screens/Order';
+import Payment from './src/screens/Payment';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import reduxStore from './src/redux/store';
+import Routes from './src/screens/Routes';
 
 const App = () => {
-  const AuthStack = createNativeStackNavigator();
-  const MainStack = createNativeStackNavigator();
+  const {store, persistor} = reduxStore();
+
   return (
-    <NavigationContainer>
-      {/* <AuthStack.Navigator>
-        <AuthStack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <AuthStack.Screen
-          name="Register"
-          component={Register}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </AuthStack.Navigator> */}
-      <MainStack.Navigator>
-        {/* <MainStack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="Search"
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
-        <MainStack.Screen
-          options={{headerShown: false}}
-          name="Main Menu"
-          component={BottomTab}
-        />
-      </MainStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Routes />
+      </PersistGate>
+    </Provider>
   );
 };
 

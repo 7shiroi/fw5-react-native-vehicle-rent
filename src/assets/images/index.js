@@ -4,3 +4,5 @@ export const HOMEHEADER = require('./homeHeader.png');
 export const DUMMY1 = require('./dummy1.png');
 export const DUMMY2 = require('./dummy2.png');
 export const DUMMY3 = require('./dummy3.png');
+export const ORDERDUMMY = require('./orderDummy.png');
+export const PROFILE = require('./profile.png');
