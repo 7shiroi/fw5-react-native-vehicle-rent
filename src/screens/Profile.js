@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Container from '../components/Container';
 import {PROFILE} from '../assets/images';
 import globalStyle from '../assets/style';
@@ -9,19 +9,33 @@ import {
   AUTH_LOGOUT,
   COLOR_ACCENT,
   RESET_MESSAGE_STATE,
+  TOGGLE_LOADING,
   UPDATE_PROFILE_NAV,
 } from '../helpers/utils';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProfileAction} from '../redux/actions/auth';
 
 const Profile = () => {
   const navigate = useNavigation();
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    dispatch({type: TOGGLE_LOADING});
+    await dispatch(getProfileAction(auth.token));
+    dispatch({type: TOGGLE_LOADING});
+  };
 
   const handleLogout = () => {
     dispatch({type: AUTH_LOGOUT});
     dispatch({type: RESET_MESSAGE_STATE});
   };
+
   return (
     <View style={globalStyle.flex1}>
       <View
@@ -34,7 +48,7 @@ const Profile = () => {
         ]}>
         <Image source={PROFILE} style={styles.circle} />
         <View style={globalStyle.gap4} />
-        <Text style={styles.userName}>User's name</Text>
+        <Text style={styles.userName}>{auth.userData.name}</Text>
       </View>
       <View style={[globalStyle.bgSecondary, globalStyle.flex1]}>
         <Button
