@@ -1,81 +1,34 @@
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Layout from '../components/Layout';
 import {DUMMY3} from '../assets/images';
 import ItemCard from '../components/ItemCard';
 import LayoutNoScroll from '../components/LayoutNoScroll';
-
-const DATA = [
-  {
-    id: 1,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-  {
-    id: 2,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 1,
-    location: 'Jakarta',
-    isAvailable: false,
-    price: 30000,
-  },
-  {
-    id: 3,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-  {
-    id: 4,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-  {
-    id: 5,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-  {
-    id: 6,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-  {
-    id: 7,
-    image: DUMMY3,
-    name: 'Dummy',
-    capacity: 2,
-    location: 'Jakarta',
-    isAvailable: true,
-    price: 30000,
-  },
-];
+import {useDispatch, useSelector} from 'react-redux';
+import {getVehiclesAction} from '../redux/actions/vehicles';
+import {useNavigation} from '@react-navigation/native';
+import {TOGGLE_LOADING} from '../helpers/utils';
 
 const Search = () => {
+  const vehicles = useSelector(state => state.vehicles);
+  const dispatch = useDispatch();
+  const navigate = useNavigation();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    dispatch({type: TOGGLE_LOADING});
+    await dispatch(getVehiclesAction);
+    dispatch({type: TOGGLE_LOADING});
+  };
+
   return (
-    // <LayoutNoScroll>
-    <FlatList data={DATA} renderItem={obj => <ItemCard data={obj.item} />} />
-    // {/* </LayoutNoScroll> */}
+    <FlatList
+      data={vehicles.vehiclesData}
+      renderItem={obj => <ItemCard data={obj.item} />}
+    />
   );
 };
 

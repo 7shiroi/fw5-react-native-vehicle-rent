@@ -9,7 +9,6 @@ const http = (token, useUpload) => {
   if (useUpload) {
     headers['Content-Type'] = 'multipart/form-data';
   }
-  console.log(headers);
   return axios.create({
     baseURL: BACKEND_URL,
     headers,

@@ -8,6 +8,7 @@ import {
   ORDER_NAV,
   PAYMENT_NAV,
   REGISTER_NAV,
+  SEARCH_NAV,
 } from '../helpers/utils';
 import Login from './Login';
 import Register from './Register';
@@ -16,6 +17,7 @@ import BottomTab from './BottomTab';
 import UpdateProfile from './UpdateProfile';
 import Order from './Order';
 import Payment from './Payment';
+import Search from './Search';
 
 const Routes = () => {
   const auth = useSelector(state => state.auth);

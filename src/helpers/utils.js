@@ -15,6 +15,8 @@ export const SEARCH_NAV = 'Search';
 export const CATEGORY_NAV = 'Category';
 export const ORDER_NAV = 'Order';
 export const PAYMENT_NAV = 'Payment';
+export const HISTORY_NAV = 'History';
+export const CHAT_NAV = 'Chat';
 
 //REDUCERS
 //Loading
@@ -28,6 +30,10 @@ export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_GET_PROFILE = 'AUTH_GET_PROFILE';
 export const RESET_AUTH_STATE = 'RESET_AUTH_STATE';
+//VEHICLES
+export const SET_VEHICLES_DATA = 'SET_VEHICLES_DATA';
+//CATEGORIES
+export const GET_CATEGORIES = 'GET_CATEGORIES';
 
 //EXTRAS
 export const BACKEND_URL = 'http://localhost:5000/';

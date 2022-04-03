@@ -3,12 +3,16 @@ import React from 'react';
 import Container from './Container';
 import globalStyle from '../assets/style';
 import {stringToIdr} from '../helpers/converter';
+import {DUMMY3} from '../assets/images';
 
 const ItemCard = ({data}) => {
   return (
     <Container style={globalStyle.flexRow}>
       <View style={styles.imageItem}>
-        <Image style={styles.imageItem} source={data.image} />
+        <Image
+          style={styles.imageItem}
+          source={data.image ? {uri: data.image} : DUMMY3}
+        />
       </View>
       <View style={globalStyle.gap2} />
       <View style={styles.itemInfo}>
