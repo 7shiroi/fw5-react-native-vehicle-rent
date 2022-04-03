@@ -58,6 +58,13 @@ const Login = () => {
               </Alert>
             </View>
           )}
+          {messages.msg === 'Register successful' && (
+            <View style={globalStyle.mb3}>
+              <Alert colorScheme={COLOR_ACCENT}>
+                <Text>{messages.msg}</Text>
+              </Alert>
+            </View>
+          )}
           <View style={globalStyle.mb3}>
             <InputField
               placeholder="Please enter username"
@@ -123,5 +130,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+  },
+  alignCenter: {
+    alignItems: 'center',
   },
 });
