@@ -15,17 +15,34 @@ import dummyImage from '../assets/images/dummy1.png';
 import {useNavigation} from '@react-navigation/native';
 import {ORDER_NAV, TOGGLE_LOADING} from '../helpers/utils';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPopularVehiclesAction} from '../redux/actions/vehicles';
+import {
+  getDetailVehicle,
+  getPopularVehiclesAction,
+} from '../redux/actions/vehicles';
 
 const RecommendList = () => {
   const navigate = useNavigation();
   const vehicles = useSelector(state => state.vehicles);
+  const dispatch = useDispatch();
 
-  const RecommendItem = ({image, ...props}) => {
+  const goToOrder = id => {
+    fetchDetailData(id);
+    navigate.push(ORDER_NAV);
+  };
+
+  const fetchDetailData = async id => {
+    dispatch({type: TOGGLE_LOADING});
+    await dispatch(getDetailVehicle(id));
+    dispatch({type: TOGGLE_LOADING});
+  };
+
+  const RecommendItem = ({id, image, ...props}) => {
     return (
       <TouchableOpacity
         style={styles.imageItem}
-        onPress={() => navigate.push(ORDER_NAV)}>
+        onPress={() => {
+          goToOrder(id);
+        }}>
         <Image
           source={image ? {uri: image} : DUMMY1}
           style={styles.imageItemStyle}
@@ -49,7 +66,7 @@ const RecommendList = () => {
         keyExtractor={obj => obj.id}
         data={vehicles.vehiclesData}
         renderItem={obj => {
-          return <RecommendItem image={obj.item.image} />;
+          return <RecommendItem id={obj.item.id} image={obj.item.image} />;
         }}
       />
     </View>
