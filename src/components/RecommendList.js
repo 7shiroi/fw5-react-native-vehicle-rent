@@ -26,7 +26,6 @@ const RecommendList = () => {
   const dispatch = useDispatch();
 
   const goToOrder = id => {
-    console.log(id);
     fetchDetailData(id);
     navigate.push(ORDER_NAV);
   };

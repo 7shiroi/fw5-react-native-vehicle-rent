@@ -1,12 +1,14 @@
 import {
   CLEAR_DETAIL_VEHICLE,
   GET_DETAIL_VEHICLE,
+  SET_REGISTERED_LOCATIONS,
   SET_VEHICLES_DATA,
 } from '../../helpers/utils';
 
 const initialState = {
   vehiclesData: [],
   detailData: {},
+  registeredLocation: [],
 };
 
 const vehicles = (state = initialState, action) => {
@@ -21,6 +23,10 @@ const vehicles = (state = initialState, action) => {
     }
     case CLEAR_DETAIL_VEHICLE: {
       state.detailData = {};
+      return {...state};
+    }
+    case SET_REGISTERED_LOCATIONS: {
+      state.registeredLocation = action.payload;
       return {...state};
     }
     default: {

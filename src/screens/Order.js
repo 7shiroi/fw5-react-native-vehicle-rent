@@ -7,7 +7,7 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 import {COLOR_ACCENT, COLOR_PRIMARY, PAYMENT_NAV} from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
-import {dateToString} from '../helpers/converter';
+import {dateToString, stringToIdr} from '../helpers/converter';
 import {Select} from 'native-base';
 import Button from '../components/Button';
 import {useNavigation} from '@react-navigation/native';
@@ -60,7 +60,7 @@ const Order = () => {
           />
         </View>
         <Text style={[styles.titleText, globalStyles.mb4]}>
-          Rp {detailData.price}/day
+          Rp {stringToIdr(detailData.price)}/day
         </Text>
         <Text>
           Max for {detailData.capacity}{' '}
@@ -68,7 +68,7 @@ const Order = () => {
         </Text>
         <Text>
           {detailData.has_prepayent
-            ? `Minimal Prepayment: ${detailData.price * 0.1} `
+            ? `Minimal Prepayment: ${stringToIdr(detailData.price * 0.1)} `
             : 'No Prepayment'}
         </Text>
         <Text

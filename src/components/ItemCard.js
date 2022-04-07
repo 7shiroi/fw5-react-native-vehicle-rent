@@ -23,8 +23,8 @@ const ItemCard = ({data}) => {
           </Text>
           <Text>{data.location}</Text>
           <Text
-            style={data.isAvailable ? styles.available : styles.notAvailable}>
-            {data.isAvailable ? 'Available' : 'Not Available'}
+            style={data.is_available ? styles.available : styles.notAvailable}>
+            {data.is_available ? 'Available' : 'Not Available'}
           </Text>
         </View>
         <View>
