@@ -8,3 +8,17 @@ export const dateToString = (
 export const stringToIdr = string => {
   return Number(string).toLocaleString('id-ID');
 };
+
+export const getFirstName = string => {
+  return string.split(' ').slice(0, -1).join(' ');
+};
+
+export const getLastName = string => {
+  return string.split(' ').slice(-1).join('');
+};
+
+export const addDays = (date, days) => {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};

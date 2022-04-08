@@ -7,13 +7,17 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 import {COLOR_ACCENT, COLOR_PRIMARY, PAYMENT_NAV} from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
-import {dateToString} from '../helpers/converter';
-import {Select} from 'native-base';
+import {dateToString, stringToIdr} from '../helpers/converter';
+import {ScrollView, Select} from 'native-base';
 import Button from '../components/Button';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {setTransactionData} from '../redux/actions/transaction';
 
 const Order = () => {
   const navigate = useNavigation();
+  const dispatch = useDispatch();
+  const {detailData} = useSelector(state => state.vehicles);
   const [qty, setQty] = useState(1);
   const [rentDuration, setRentDuration] = useState('1');
   const [date, setDate] = useState(new Date());
@@ -30,13 +34,32 @@ const Order = () => {
       mode: 'date',
     });
   };
+
+  const decrementButton = () => {
+    if (qty > 1) {
+      setQty(qty - 1);
+    }
+  };
+
+  const incrementButton = () => {
+    if (qty < detailData.stock) {
+      setQty(qty + 1);
+    }
+  };
+
+  const handleBook = () => {
+    const data = {startDate: date, rentDuration, quantity: qty};
+    dispatch(setTransactionData(data));
+    navigate.push(PAYMENT_NAV);
+  };
+
   return (
-    <View>
+    <ScrollView>
       <OrderHeader />
       <View style={[globalStyles.mx4, globalStyles.my3]}>
         <View style={[globalStyles.flexRow, styles.titleContainer]}>
           <Text style={[globalStyles.flex1, styles.titleText]}>
-            Vespa Matic
+            {detailData.name}
           </Text>
           <IconIonicons
             name="chatbubble-outline"
@@ -44,10 +67,27 @@ const Order = () => {
             color={COLOR_PRIMARY}
           />
         </View>
-        <Text style={[styles.titleText, globalStyles.mb4]}>Rp 120.000/day</Text>
-        <Text>Max for 2 person</Text>
-        <Text>No Prepayment</Text>
-        <Text style={[styles.isAvailable, globalStyles.mb5]}>Available</Text>
+        <Text style={[styles.titleText, globalStyles.mb4]}>
+          Rp {stringToIdr(detailData.price)}/day
+        </Text>
+        <Text>
+          Max for {detailData.capacity}{' '}
+          {detailData.capacity > 1 ? 'people' : 'person'}
+        </Text>
+        <Text>
+          {detailData.has_prepayent
+            ? `Minimal Prepayment: ${stringToIdr(detailData.price * 0.1)} `
+            : 'No Prepayment'}
+        </Text>
+        <Text
+          style={[
+            detailData.is_available
+              ? styles.isAvailable
+              : styles.isNotAvailable,
+            globalStyles.mb5,
+          ]}>
+          {detailData.is_available ? 'Available' : 'Not Available'}
+        </Text>
         <View
           style={[
             globalStyles.flexRow,
@@ -56,7 +96,7 @@ const Order = () => {
           ]}>
           <IconIonicons name="location-outline" size={25} />
           <View style={globalStyles.gap3} />
-          <Text>Jakarta</Text>
+          <Text>{detailData.location}</Text>
         </View>
         <View
           style={[
@@ -66,19 +106,13 @@ const Order = () => {
           ]}>
           <Text>Quantity</Text>
           <View style={globalStyles.flexRow}>
-            <TouchableOpacity
-              onPress={() => {
-                setQty(qty - 1);
-              }}>
+            <TouchableOpacity onPress={decrementButton}>
               <IconFA name="minus-circle" size={20} color={COLOR_ACCENT} />
             </TouchableOpacity>
             <View style={globalStyles.gap4} />
             <Text style={styles.quantityText}>{qty}</Text>
             <View style={globalStyles.gap4} />
-            <TouchableOpacity
-              onPress={() => {
-                setQty(qty + 1);
-              }}>
+            <TouchableOpacity onPress={incrementButton}>
               <IconFA name="plus-circle" size={20} color={COLOR_ACCENT} />
             </TouchableOpacity>
           </View>
@@ -107,15 +141,13 @@ const Order = () => {
           </Select>
         </View>
         <Button
-          onPress={() => {
-            navigate.push(PAYMENT_NAV);
-          }}
+          onPress={handleBook}
           style={[globalStyles.py3]}
           color={COLOR_ACCENT}>
           <Text style={styles.titleText}>Book Now</Text>
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -3,7 +3,8 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './Home';
 import Search from './Search';
-import {CATEGORY_NAV, HOME_NAV, SEARCH_NAV} from '../helpers/utils';
+import {CATEGORY_NAV, FILTER_NAV, HOME_NAV, SEARCH_NAV} from '../helpers/utils';
+import Filter from './Filter';
 
 const MainMenu = () => {
   const mainMenuStack = createNativeStackNavigator();
@@ -21,8 +22,8 @@ const MainMenu = () => {
       />
       <mainMenuStack.Screen
         options={{headerShown: false}}
-        name={CATEGORY_NAV}
-        component={Home}
+        name={FILTER_NAV}
+        component={Filter}
       />
     </mainMenuStack.Navigator>
   );

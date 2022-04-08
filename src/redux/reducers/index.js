@@ -5,7 +5,9 @@ import messages from './messages';
 import loading from './loading';
 import persistReducer from 'redux-persist/es/persistReducer';
 import categories from './categories';
+import transaction from './transaction';
 import vehicles from './vehicles';
+import filter from './filter';
 
 const persistAuth = {
   key: 'auth',
@@ -19,9 +21,11 @@ const persistCategories = {
 const rootReducers = combineReducers({
   auth: persistReducer(persistAuth, auth),
   categories: persistReducer(persistCategories, categories),
-  vehicles,
-  messages,
+  filter,
   loading,
+  messages,
+  transaction,
+  vehicles,
 });
 
 export default rootReducers;
