@@ -18,6 +18,7 @@ export const PAYMENT_NAV = 'Payment';
 export const HISTORY_NAV = 'History';
 export const CHAT_NAV = 'Chat';
 export const FILTER_NAV = 'Filter';
+export const BOTTOM_TAB_NAV = 'Bottom Tab';
 
 //REDUCERS
 //Loading
@@ -41,6 +42,12 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 //FILTER
 export const SET_FILTER = 'SET_FILTER';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+//TRANSACTION
+export const SET_TRANSACTION_DATA = 'SET_TRANSACTION_DATA';
+export const CLEAR_TRANSACTION_DATA = 'CLEAR_TRANSACTION_DATA';
 
 //EXTRAS
 export const BACKEND_URL = 'http://localhost:5000/';
+export const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const BANK_ACCOUNT_NUMBER = '0290-90203-345-2';
+export const BANK_ACCOUNT_NAME = 'Vehicle Renter';

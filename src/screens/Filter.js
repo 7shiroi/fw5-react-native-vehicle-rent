@@ -24,6 +24,7 @@ import {
   getRegisteredLocationsAction,
   getVehiclesAction,
 } from '../redux/actions/vehicles';
+import {Picker} from 'react-native-wheel-pick';
 
 const Filter = () => {
   const filter = useSelector(state => state.filter);
@@ -229,6 +230,21 @@ const Filter = () => {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
+      <Picker
+        style={{backgroundColor: 'white', width: 300, height: 215}}
+        selectedValue="item4"
+        pickerData={[
+          'item1',
+          'item2',
+          'item3',
+          'item4',
+          'item5',
+          'item6',
+          'item7',
+        ]}
+        onValueChange={value => {}}
+        itemSpace={30} // this only support in android
+      />
     </VStack>
   );
 };

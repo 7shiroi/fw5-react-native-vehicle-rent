@@ -20,7 +20,25 @@ export const getVehiclesAction = queryString => {
   return async dispatch => {
     try {
       const {data} = await http().get(`/vehicle?${qs.stringify(queryString)}`);
-      dispatch({type: SET_VEHICLES_DATA, payload: data.result});
+      dispatch({
+        type: SET_VEHICLES_DATA,
+        payload: {result: data.result, pageInfo: data.pageinfo},
+      });
+    } catch (error) {
+      console.log(error.response);
+      dispatch({type: SET_ERROR, payload: error.response.data.message});
+    }
+  };
+};
+
+export const getNextVehiclesAction = url => {
+  return async dispatch => {
+    try {
+      const {data} = await http().get(url);
+      dispatch({
+        type: 'GET_NEXT_DATA',
+        payload: {result: data.result, pageInfo: data.pageinfo},
+      });
     } catch (error) {
       dispatch({type: SET_ERROR, payload: error.response.data.message});
     }
@@ -30,7 +48,10 @@ export const getVehiclesAction = queryString => {
 export const getPopularVehiclesAction = async dispatch => {
   try {
     const {data} = await http().get('/vehicle/popular?limit=6');
-    dispatch({type: SET_VEHICLES_DATA, payload: data.result});
+    dispatch({
+      type: SET_VEHICLES_DATA,
+      payload: {result: data.result, pageInfo: data.pageinfo},
+    });
   } catch (error) {
     dispatch({type: SET_ERROR, payload: error.response.data.message});
   }

@@ -8,13 +8,15 @@ import {COLOR_ACCENT, COLOR_PRIMARY, PAYMENT_NAV} from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {dateToString, stringToIdr} from '../helpers/converter';
-import {Select} from 'native-base';
+import {ScrollView, Select} from 'native-base';
 import Button from '../components/Button';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {setTransactionData} from '../redux/actions/transaction';
 
 const Order = () => {
   const navigate = useNavigation();
+  const dispatch = useDispatch();
   const {detailData} = useSelector(state => state.vehicles);
   const [qty, setQty] = useState(1);
   const [rentDuration, setRentDuration] = useState('1');
@@ -45,8 +47,14 @@ const Order = () => {
     }
   };
 
+  const handleBook = () => {
+    const data = {startDate: date, rentDuration, quantity: qty};
+    dispatch(setTransactionData(data));
+    navigate.push(PAYMENT_NAV);
+  };
+
   return (
-    <View>
+    <ScrollView>
       <OrderHeader />
       <View style={[globalStyles.mx4, globalStyles.my3]}>
         <View style={[globalStyles.flexRow, styles.titleContainer]}>
@@ -133,15 +141,13 @@ const Order = () => {
           </Select>
         </View>
         <Button
-          onPress={() => {
-            navigate.push(PAYMENT_NAV);
-          }}
+          onPress={handleBook}
           style={[globalStyles.py3]}
           color={COLOR_ACCENT}>
           <Text style={styles.titleText}>Book Now</Text>
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -5749,6 +5749,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.6"
 
+moment@^2.19.1:
+  version "2.29.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
+  integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -6465,6 +6470,13 @@ react-native-vector-icons@^9.1.0:
   dependencies:
     prop-types "^15.7.2"
     yargs "^16.1.1"
+
+react-native-wheel-pick@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-pick/-/react-native-wheel-pick-1.1.1.tgz#3b28def5317b09a5927db2e8270931f283c3d7db"
+  integrity sha512-OVyqmNcNvOouE55tKfSl2lHImmGKotCY4BHLiMtJQBgMVvvpDLO5NWZip7Z+RUHAGfBI7qHwMh5Ai1+i4vA4Cg==
+  dependencies:
+    moment "^2.19.1"
 
 react-native@0.67.4:
   version "0.67.4"

@@ -8,6 +8,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
+import History from './History';
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
@@ -27,7 +28,7 @@ const BottomTab = () => {
           tabBarIcon: () => <IconMCI name="note-text-outline" size={30} />,
         }}
         name={HISTORY_NAV}
-        component={Profile}
+        component={History}
       />
       <Tab.Screen
         options={{

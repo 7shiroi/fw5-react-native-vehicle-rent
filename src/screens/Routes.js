@@ -4,6 +4,7 @@ import {extendTheme, NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
+  BOTTOM_TAB_NAV,
   LOGIN_NAV,
   ORDER_NAV,
   PAYMENT_NAV,
@@ -51,7 +52,7 @@ const Routes = () => {
           <MainStack.Navigator>
             <MainStack.Screen
               options={{headerShown: false}}
-              name="Bottom Tab"
+              name={BOTTOM_TAB_NAV}
               component={BottomTab}
             />
             <MainStack.Screen

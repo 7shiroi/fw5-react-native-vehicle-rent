@@ -36,6 +36,11 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
+        jcenter() {
+            content {
+                includeModule("cn.aigestudio.wheelpicker", "WheelPicker")
+            }
+        }
         google()
         maven { url 'https://www.jitpack.io' }
     }

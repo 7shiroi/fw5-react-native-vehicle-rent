@@ -5,6 +5,7 @@ import messages from './messages';
 import loading from './loading';
 import persistReducer from 'redux-persist/es/persistReducer';
 import categories from './categories';
+import transaction from './transaction';
 import vehicles from './vehicles';
 import filter from './filter';
 
@@ -23,6 +24,7 @@ const rootReducers = combineReducers({
   filter,
   loading,
   messages,
+  transaction,
   vehicles,
 });
 
