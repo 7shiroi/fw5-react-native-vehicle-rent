@@ -13,6 +13,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {ORDER_NAV, TOGGLE_LOADING} from '../helpers/utils';
 import FilterBar from '../components/FilterBar';
+import {getHistoryAction} from '../redux/actions/history';
 
 const Search = () => {
   const vehicles = useSelector(state => state.vehicles);
