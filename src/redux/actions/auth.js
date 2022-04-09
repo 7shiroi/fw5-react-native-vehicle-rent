@@ -56,16 +56,51 @@ export const getProfileAction = token => {
 export const updateProfileAction = (token, updateData) => {
   return async dispatch => {
     try {
-      const params = new FormData();
+      const {data: updatedData} = await http(
+        token,
+        true,
+        'PATCH',
+        'profile',
+        updateData,
+      );
 
-      for (const key in updateData) {
-        params.append(key, updateData[key]);
+      const responseData = updatedData.includes('message')
+        ? qs.parse(
+            updatedData
+              .replace('{', '')
+              .replace('}', '')
+              .replaceAll(':', '=')
+              .replaceAll(',', '&')
+              .replace('"success"', 'success')
+              .replace('"message"', 'message'),
+          )
+        : qs.parse(
+            updatedData
+              .replace('{', '')
+              .replace('}', '')
+              .replaceAll(':', '=')
+              .replaceAll(',', '&')
+              .replace('"success"', 'success')
+              .replace('"error"', 'error'),
+          );
+
+      if (responseData.success === 'false') {
+        throw responseData.message
+          ? responseData.message.replaceAll('"', '')
+          : responseData.error.replaceAll('"', '');
+      } else {
+        dispatch({
+          type: SET_MESSAGE,
+          payload: responseData.message.replaceAll('"', ''),
+        });
       }
-      console.log(params);
-      const {data} = await http(token, true).patch('/profile', params);
+      console.log(responseData);
+      const {data} = await http(token).get('/profile');
       dispatch({type: AUTH_GET_PROFILE, payload: data.result});
     } catch (e) {
-      dispatch({type: SET_ERROR, payload: e.response.data.error[0]});
+      if (typeof e === 'string') {
+        dispatch({type: SET_ERROR, payload: e});
+      }
     }
   };
 };
