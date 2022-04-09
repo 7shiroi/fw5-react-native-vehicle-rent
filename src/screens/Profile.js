@@ -46,7 +46,12 @@ const Profile = () => {
           globalStyle.py3,
           globalStyle.px2,
         ]}>
-        <Image source={PROFILE} style={styles.circle} />
+        <Image
+          source={
+            auth.userData.picture ? {uri: auth.userData.picture} : PROFILE
+          }
+          style={styles.circle}
+        />
         <View style={globalStyle.gap4} />
         <Text style={styles.userName}>{auth.userData.name}</Text>
       </View>

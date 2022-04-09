@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import globalStyles from '../assets/style';
 import {PROFILE} from '../assets/images';
 import {
+  Alert,
+  Center,
   FormControl,
   Input,
   Radio,
@@ -12,15 +14,22 @@ import {
   useToast,
 } from 'native-base';
 import Button from '../components/Button';
-import {COLOR_ACCENT, TOGGLE_LOADING} from '../helpers/utils';
+import {
+  COLOR_ACCENT,
+  RESET_MESSAGE_STATE,
+  TOGGLE_LOADING,
+} from '../helpers/utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {dateToString} from '../helpers/converter';
-import {updateProfileAction} from '../redux/actions/auth';
+import {getProfileAction, updateProfileAction} from '../redux/actions/auth';
 import {emailValidation, phoneNumberValidation} from '../helpers/validator';
+import {launchImageLibrary} from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const UpdateProfile = () => {
   const auth = useSelector(state => state.auth);
+  const messages = useSelector(state => state.messages);
   const dispatch = useDispatch();
   const toast = useToast();
   const [name, setName] = useState('');
@@ -29,6 +38,7 @@ const UpdateProfile = () => {
   const [birthDate, setBirthDate] = useState(new Date());
   const [address, setAdress] = useState('');
   const [gender, setGender] = useState(null);
+  const [picture, setPicture] = useState(null);
   const [dateChanged, setDateChanged] = useState(false);
   const onBirthDateChange = (e, selectedDate) => {
     setBirthDate(selectedDate);
@@ -43,6 +53,7 @@ const UpdateProfile = () => {
     });
   };
   useEffect(() => {
+    dispatch({type: RESET_MESSAGE_STATE});
     if (auth.userData) {
       setName(auth.userData.name);
       setEmail(auth.userData.email);
@@ -52,11 +63,13 @@ const UpdateProfile = () => {
       }
       setAdress(auth.userData.address);
       setGender(auth.userData.gender);
+      setPicture(auth.userData.picture);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdateProfile = async () => {
+    dispatch({type: RESET_MESSAGE_STATE});
     if (name.length === 0) {
       toast.show({
         description: 'Name cannot be empty',
@@ -74,14 +87,14 @@ const UpdateProfile = () => {
         description: 'Invalid phone number format',
       });
     } else {
-      const data = {
-        name,
-        email,
-        phone_number: phoneNumber,
-        birth_date: birthDate,
-        address,
-        gender,
-      };
+      const data = [
+        {name: 'name', data: name},
+        {name: 'email', data: email},
+        {name: 'phone_number', data: phoneNumber},
+        {name: 'birth_date', data: birthDate},
+        {name: 'address', data: address},
+        {name: 'gender', data: gender},
+      ];
 
       dispatch({type: TOGGLE_LOADING});
       await dispatch(updateProfileAction(auth.token, data));
@@ -89,10 +102,45 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleUploadImage = async () => {
+    dispatch({type: RESET_MESSAGE_STATE});
+    try {
+      const response = await launchImageLibrary({});
+      if (response.didCancel) {
+        return false;
+      }
+      dispatch({type: TOGGLE_LOADING});
+      await dispatch(
+        updateProfileAction(auth.token, [
+          {
+            name: 'picture',
+            filename: response.assets[0].fileName,
+            type: response.assets[0].type,
+            data: RNFetchBlob.wrap(response.assets[0].uri),
+          },
+        ]),
+      );
+      dispatch({type: TOGGLE_LOADING});
+      setPicture(response.assets[0].uri);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <ScrollView>
       <View style={[styles.header, globalStyles.mb4]}>
-        <Image source={PROFILE} style={styles.profileImage} />
+        <Image
+          source={
+            auth.userData.picture ? {uri: auth.userData.picture} : PROFILE
+          }
+          style={[styles.profileImage, globalStyles.mb3]}
+        />
+        <Center mb={3}>
+          <Button color={COLOR_ACCENT} onPress={handleUploadImage}>
+            <Text style={[globalStyles.px3]}>Update Profile Picture</Text>
+          </Button>
+        </Center>
         <Radio.Group
           name="gender"
           accessibilityLabel="Gender"
@@ -133,7 +181,11 @@ const UpdateProfile = () => {
           <FormControl.Label>Date of Birth</FormControl.Label>
           <Input
             type="date"
-            value={dateChanged ? dateToString(birthDate) : ''}
+            value={
+              dateChanged || auth.userData.birth_date
+                ? dateToString(birthDate)
+                : ''
+            }
             onFocus={handleShowDatePicker}
             mb={3}
           />
@@ -141,6 +193,16 @@ const UpdateProfile = () => {
           <TextArea h={20} value={address} mb={5} onChangeText={setAdress} />
         </Stack>
       </FormControl>
+      {messages.error && (
+        <Alert mx={3}>
+          <Text>{messages.errorMsg}</Text>
+        </Alert>
+      )}
+      {messages.msg.includes('has been updated') && (
+        <Alert mx={3}>
+          <Text>Your profile has been updated!</Text>
+        </Alert>
+      )}
       <Button
         onPress={handleUpdateProfile}
         color={COLOR_ACCENT}
