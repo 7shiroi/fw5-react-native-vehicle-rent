@@ -1,5 +1,6 @@
 export const LOGINBG = require('./loginBg.png');
 export const REGISTERBG = require('./registerBg.png');
+export const FORGOTPASSWORDBG = require('./forgotPasswordBg.png');
 export const HOMEHEADER = require('./homeHeader.png');
 export const DUMMY1 = require('./dummy1.png');
 export const DUMMY2 = require('./dummy2.png');

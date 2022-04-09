@@ -5,11 +5,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   BOTTOM_TAB_NAV,
+  FORGOT_PASSWORD_NAV,
   LOGIN_NAV,
   ORDER_NAV,
   PAYMENT_NAV,
   REGISTER_NAV,
+  RESET_PASSWORD_NAV,
   SEARCH_NAV,
+  UPDATE_PROFILE_NAV,
+  VERIFY_USER_NAV,
 } from '../helpers/utils';
 import Login from './Login';
 import Register from './Register';
@@ -19,6 +23,9 @@ import UpdateProfile from './UpdateProfile';
 import Order from './Order';
 import Payment from './Payment';
 import Search from './Search';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
+import VerifyUser from './VerifyUser';
 
 const Routes = () => {
   const auth = useSelector(state => state.auth);
@@ -46,6 +53,20 @@ const Routes = () => {
                 headerShown: false,
               }}
             />
+            <AuthStack.Screen
+              name={FORGOT_PASSWORD_NAV}
+              component={ForgotPassword}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <AuthStack.Screen
+              name={RESET_PASSWORD_NAV}
+              component={ResetPassword}
+              options={{
+                headerShown: false,
+              }}
+            />
           </AuthStack.Navigator>
         )}
         {auth.token && (
@@ -57,8 +78,13 @@ const Routes = () => {
             />
             <MainStack.Screen
               options={{headerShown: true}}
-              name="Update Profile"
+              name={UPDATE_PROFILE_NAV}
               component={UpdateProfile}
+            />
+            <MainStack.Screen
+              options={{headerShown: false}}
+              name={VERIFY_USER_NAV}
+              component={VerifyUser}
             />
             <MainStack.Screen
               options={{headerShown: false}}

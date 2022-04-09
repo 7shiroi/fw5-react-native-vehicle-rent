@@ -11,6 +11,7 @@ import {
   RESET_MESSAGE_STATE,
   TOGGLE_LOADING,
   UPDATE_PROFILE_NAV,
+  VERIFY_USER_NAV,
 } from '../helpers/utils';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -81,6 +82,15 @@ const Profile = () => {
           <Text>Update Profile</Text>
           <IconFA name="chevron-right" size={20} />
         </Button>
+        {auth.userData.is_verified === 0 && (
+          <Button
+            color="unset"
+            buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}
+            onPress={() => navigate.push(VERIFY_USER_NAV)}>
+            <Text>Verify Account</Text>
+            <IconFA name="chevron-right" size={20} />
+          </Button>
+        )}
       </View>
       <View style={[globalStyle.bgSecondary, globalStyle.px4, globalStyle.py3]}>
         <Button color={COLOR_ACCENT} onPress={handleLogout}>

@@ -104,3 +104,17 @@ export const updateProfileAction = (token, updateData) => {
     }
   };
 };
+
+export const verifyUserRequest = (token, bodyData) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(token).post(
+        'auth/verifyUser',
+        qs.stringify(bodyData),
+      );
+      dispatch({type: SET_MESSAGE, payload: data.message});
+    } catch (error) {
+      dispatch({type: SET_ERROR, payload: error.response.data.message});
+    }
+  };
+};
