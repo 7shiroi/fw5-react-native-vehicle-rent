@@ -9,6 +9,7 @@ import transaction from './transaction';
 import vehicles from './vehicles';
 import filter from './filter';
 import history from './history';
+import forgotPassword from './forgotPassword';
 
 const persistAuth = {
   key: 'auth',
@@ -23,6 +24,7 @@ const rootReducers = combineReducers({
   auth: persistReducer(persistAuth, auth),
   categories: persistReducer(persistCategories, categories),
   filter,
+  forgotPassword,
   history,
   loading,
   messages,

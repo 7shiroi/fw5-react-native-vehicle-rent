@@ -4,11 +4,16 @@ import globalStyles from '../assets/style';
 import OrderHeader from '../components/OrderHeader';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
-import {COLOR_ACCENT, COLOR_PRIMARY, PAYMENT_NAV} from '../helpers/utils';
+import {
+  COLOR_ACCENT,
+  COLOR_PRIMARY,
+  PAYMENT_NAV,
+  VERIFY_USER_NAV,
+} from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {dateToString, stringToIdr} from '../helpers/converter';
-import {ScrollView, Select} from 'native-base';
+import {Modal, ScrollView, Select, Button as ButtonNB} from 'native-base';
 import Button from '../components/Button';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,10 +23,12 @@ const Order = () => {
   const navigate = useNavigation();
   const dispatch = useDispatch();
   const {detailData} = useSelector(state => state.vehicles);
+  const profile = useSelector(state => state.auth.userData);
   const [qty, setQty] = useState(1);
   const [rentDuration, setRentDuration] = useState('1');
   const [date, setDate] = useState(new Date());
   const [dateChanged, setDateChanged] = useState(false);
+  const [showModalVerify, setShowModalVerify] = useState(false);
   const onChange = (e, selectedDate) => {
     setDate(selectedDate);
     setDateChanged(true);
@@ -48,9 +55,13 @@ const Order = () => {
   };
 
   const handleBook = () => {
-    const data = {startDate: date, rentDuration, quantity: qty};
-    dispatch(setTransactionData(data));
-    navigate.push(PAYMENT_NAV);
+    if (profile.is_verified === 0) {
+      setShowModalVerify(true);
+    } else {
+      const data = {startDate: date, rentDuration, quantity: qty};
+      dispatch(setTransactionData(data));
+      navigate.push(PAYMENT_NAV);
+    }
   };
 
   return (
@@ -147,6 +158,29 @@ const Order = () => {
           <Text style={styles.titleText}>Book Now</Text>
         </Button>
       </View>
+
+      <Modal isOpen={showModalVerify} onClose={() => setShowModalVerify(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Body alignItems="center">
+            <Text>You have to verify your account first!</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <ButtonNB
+              mr={5}
+              onPress={() => {
+                setShowModalVerify(false);
+              }}>
+              <Text>Cancel</Text>
+            </ButtonNB>
+            <ButtonNB
+              onPress={() => {
+                navigate.push(VERIFY_USER_NAV);
+              }}>
+              <Text>Go Verify</Text>
+            </ButtonNB>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </ScrollView>
   );
 };

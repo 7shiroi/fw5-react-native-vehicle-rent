@@ -3,7 +3,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './Home';
 import Search from './Search';
-import {CATEGORY_NAV, FILTER_NAV, HOME_NAV, SEARCH_NAV} from '../helpers/utils';
+import {FILTER_NAV, HOME_NAV, SEARCH_NAV} from '../helpers/utils';
 import Filter from './Filter';
 
 const MainMenu = () => {
