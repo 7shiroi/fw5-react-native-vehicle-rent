@@ -25,7 +25,6 @@ export const getVehiclesAction = queryString => {
         payload: {result: data.result, pageInfo: data.pageinfo},
       });
     } catch (error) {
-      console.log(error.response);
       dispatch({type: SET_ERROR, payload: error.response.data.message});
     }
   };
