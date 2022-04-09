@@ -17,7 +17,14 @@ import globalStyles from '../assets/style';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {CLEAR_FILTER, COLOR_ACCENT, TOGGLE_LOADING} from '../helpers/utils';
+import {
+  CLEAR_FILTER,
+  COLOR_ACCENT,
+  COLOR_PRIMARY,
+  SEARCH_NAV,
+  SET_FILTER,
+  TOGGLE_LOADING,
+} from '../helpers/utils';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import Button from '../components/Button';
 import {
@@ -25,6 +32,7 @@ import {
   getVehiclesAction,
 } from '../redux/actions/vehicles';
 import {Picker} from 'react-native-wheel-pick';
+import qs from 'qs';
 
 const Filter = () => {
   const filter = useSelector(state => state.filter);
@@ -35,6 +43,9 @@ const Filter = () => {
   const [search, setSearch] = useState();
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [categoryId, setCategoryId] = useState(null);
+  const [rating, setRating] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
   const [prepayment, setPrepayment] = useState(false);
   const [showModalSearch, setShowModalSearch] = useState(false);
@@ -56,9 +67,18 @@ const Filter = () => {
   const handleReset = () => {
     dispatch({type: CLEAR_FILTER});
   };
-  const handleApplyFilter = () => {
-    const filterData = {};
-    dispatch(getVehiclesAction(filterData));
+  const handleApplyFilter = async () => {
+    const filterData = {
+      search,
+      minPrice,
+      maxPrice,
+      idCategory: categoryId,
+      hasPrepayment: prepayment ? 1 : 0,
+      isAvailable: isAvailable ? 1 : 0,
+    };
+    dispatch({type: SET_FILTER, payload: filterData});
+    await dispatch(getVehiclesAction(filter.options));
+    navigate.replace(SEARCH_NAV);
   };
 
   return (
@@ -84,15 +104,19 @@ const Filter = () => {
             onPress={() => {
               setShowModalSearch(true);
             }}>
-            <Text> {search ? search : 'Select'}</Text>
+            <Text>{search ? search : 'Select'}</Text>
             <View style={globalStyles.gap2} />
             <IconFA name="chevron-right" size={20} />
           </Pressable>
         </HStack>
         <HStack alignItems="center" justifyContent="space-between" py={2}>
           <Text>Star Rating</Text>
-          <Pressable flexDirection="row">
-            <Text>Select</Text>
+          <Pressable
+            flexDirection="row"
+            onPress={() => {
+              setShowModalRating(true);
+            }}>
+            <Text>{rating ? rating : 'Select'}</Text>
             <View style={globalStyles.gap2} />
             <IconFA name="chevron-right" size={20} />
           </Pressable>
@@ -123,23 +147,12 @@ const Filter = () => {
         </HStack>
         <HStack alignItems="center" justifyContent="space-between" py={2}>
           <Text>Type</Text>
-
-          {/* <Menu
-            trigger={triggerProps => {
-              return (
-                <Pressable flexDirection="row" {...triggerProps}>
-                  <Text>Select</Text>
-                  <View style={globalStyles.gap2} />
-                  <IconFA name="chevron-right" size={20} />
-                </Pressable>
-              );
+          <Pressable
+            flexDirection="row"
+            onPress={() => {
+              setShowModalType(true);
             }}>
-            <Menu.Item>Arial</Menu.Item>
-            <Menu.Item>Nunito Sans</Menu.Item>
-            <Menu.Item>Roboto</Menu.Item>
-          </Menu> */}
-          <Pressable flexDirection="row">
-            <Text>Select</Text>
+            <Text>{category ? category : 'Select'}</Text>
             <View style={globalStyles.gap2} />
             <IconFA name="chevron-right" size={20} />
           </Pressable>
@@ -230,21 +243,63 @@ const Filter = () => {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-      <Picker
-        style={{backgroundColor: 'white', width: 300, height: 215}}
-        selectedValue="item4"
-        pickerData={[
-          'item1',
-          'item2',
-          'item3',
-          'item4',
-          'item5',
-          'item6',
-          'item7',
-        ]}
-        onValueChange={value => {}}
-        itemSpace={30} // this only support in android
-      />
+      <Modal isOpen={showModalRating} onClose={() => setShowModalRating(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Body>
+            <Text style={globalStyles.mb3}>Select Minimum Rating</Text>
+            <Picker
+              style={styles.pickerStyle}
+              selectedValue={rating ? rating : '3'}
+              pickerData={['0', '1', '2', '3', '4', '5']}
+              onValueChange={value => {
+                setRating(value);
+              }}
+              textSize={20}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <ButtonNB
+              onPress={() => {
+                setShowModalRating(false);
+              }}>
+              <Text>Save</Text>
+            </ButtonNB>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+      <Modal isOpen={showModalType} onClose={() => setShowModalType(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Body>
+            <Text style={globalStyles.mb3}>Select Vehicles Type</Text>
+            <Picker
+              style={styles.pickerStyle}
+              selectedValue={category}
+              pickerData={[
+                {label: 'All', value: 'All'},
+                ...categories.categoriesData.map(obj => ({
+                  label: obj.name,
+                  value: `id=${obj.id}&name=${obj.name}`,
+                })),
+              ]}
+              onValueChange={value => {
+                const queryString = qs.parse(value);
+                console.log(queryString);
+                setCategoryId(queryString.id);
+                setCategory(queryString.name);
+              }}
+              textSize={20}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <ButtonNB
+              onPress={() => {
+                setShowModalType(false);
+              }}>
+              <Text>Save</Text>
+            </ButtonNB>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </VStack>
   );
 };
@@ -255,5 +310,9 @@ const styles = StyleSheet.create({
   applyButtonText: {
     fontSize: 28,
     fontWeight: 'bold',
+  },
+  pickerStyle: {
+    backgroundColor: 'white',
+    height: 80,
   },
 });
