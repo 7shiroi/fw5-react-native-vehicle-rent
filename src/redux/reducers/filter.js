@@ -21,7 +21,7 @@ const filter = (state = initialState, action) => {
       return {...state};
     }
     case CLEAR_FILTER: {
-      state.options = initialState;
+      state = initialState;
       return {...state};
     }
     default: {

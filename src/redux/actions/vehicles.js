@@ -4,8 +4,10 @@ import {
   SET_ERROR,
   GET_DETAIL_VEHICLE,
   SET_REGISTERED_LOCATIONS,
+  SET_MESSAGE,
 } from '../../helpers/utils';
 import qs from 'qs';
+import {rnFetchDataToObject} from '../../helpers/converter';
 
 // export const getVehiclesAction = async dispatch => {
 //   try {
@@ -75,4 +77,27 @@ export const getRegisteredLocationsAction = async dispatch => {
   } catch (error) {
     dispatch({type: SET_ERROR, payload: error.response.data.message});
   }
+};
+
+export const addVehicleAction = (token, inputData) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(token, true, 'POST', 'vehicle', inputData);
+      const response = rnFetchDataToObject(data);
+      if (response.success === 'false') {
+        throw response.message
+          ? response.message.replaceAll('"', '')
+          : response.error.replaceAll('"', '');
+      } else {
+        dispatch({
+          type: SET_MESSAGE,
+          payload: response.message.replaceAll('"', ''),
+        });
+      }
+    } catch (e) {
+      if (typeof e === 'string') {
+        dispatch({type: SET_ERROR, payload: e});
+      }
+    }
+  };
 };

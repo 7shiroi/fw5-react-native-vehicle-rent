@@ -5,13 +5,15 @@ import HomeHeader from '../components/HomeHeader';
 import HomeSearch from '../components/HomeSearch';
 import RecommendList from '../components/RecommendList';
 import {useDispatch, useSelector} from 'react-redux';
-import {TOGGLE_LOADING} from '../helpers/utils';
+import {ADMIN_ADD_ITEMS, TOGGLE_LOADING} from '../helpers/utils';
 import {getCategoriesAction} from '../redux/actions/categories';
 import {getPopularVehiclesAction} from '../redux/actions/vehicles';
 import {Box, Button, ScrollView} from 'native-base';
+import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigation();
   const auth = useSelector(state => state.auth);
   const fetchData = async () => {
     dispatch({type: TOGGLE_LOADING});
@@ -31,7 +33,9 @@ const Home = () => {
       <RecommendList />
       {auth.userData.id_role < 3 && (
         <Box mx={5} my={5}>
-          <Button>Add Item</Button>
+          <Button onPress={() => navigate.push(ADMIN_ADD_ITEMS)}>
+            Add Item
+          </Button>
         </Box>
       )}
     </ScrollView>
