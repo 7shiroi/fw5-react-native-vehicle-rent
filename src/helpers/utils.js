@@ -21,6 +21,7 @@ export const HISTORY_NAV = 'History';
 export const CHAT_NAV = 'Chat';
 export const FILTER_NAV = 'Filter';
 export const BOTTOM_TAB_NAV = 'Bottom Tab';
+export const ADMIN_ADD_ITEMS = 'Admin Add Item';
 
 //REDUCERS
 //Loading

@@ -20,6 +20,8 @@ export const loginAction = (username, password) => {
           token: data.result,
         },
       });
+      const {data: profile} = await http(data.result).get('/profile');
+      dispatch({type: AUTH_GET_PROFILE, payload: profile.result});
       dispatch({type: SET_MESSAGE, payload: data.message});
     } catch (e) {
       dispatch({type: SET_ERROR, payload: e.response.data.message});
@@ -94,7 +96,6 @@ export const updateProfileAction = (token, updateData) => {
           payload: responseData.message.replaceAll('"', ''),
         });
       }
-      console.log(responseData);
       const {data} = await http(token).get('/profile');
       dispatch({type: AUTH_GET_PROFILE, payload: data.result});
     } catch (e) {

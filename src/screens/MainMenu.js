@@ -3,8 +3,14 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './Home';
 import Search from './Search';
-import {FILTER_NAV, HOME_NAV, SEARCH_NAV} from '../helpers/utils';
+import {
+  ADMIN_ADD_ITEMS,
+  FILTER_NAV,
+  HOME_NAV,
+  SEARCH_NAV,
+} from '../helpers/utils';
 import Filter from './Filter';
+import AddVehicle from './Admin/AddVehicle';
 
 const MainMenu = () => {
   const mainMenuStack = createNativeStackNavigator();
@@ -24,6 +30,11 @@ const MainMenu = () => {
         options={{headerShown: false}}
         name={FILTER_NAV}
         component={Filter}
+      />
+      <mainMenuStack.Screen
+        options={{headerShown: false}}
+        name={ADMIN_ADD_ITEMS}
+        component={AddVehicle}
       />
     </mainMenuStack.Navigator>
   );
