@@ -15,9 +15,11 @@ export const setTransactionData = data => {
 export const saveTransaction = (token, inputData) => {
   return async dispatch => {
     try {
+      console.log(inputData);
       const {data} = await http(token).post('history', qs.stringify(inputData));
       dispatch({type: SET_MESSAGE, payload: data.message});
     } catch (e) {
+      console.log(e.response);
       dispatch({type: SET_ERROR, payload: e.response.data.error[0]});
     }
   };

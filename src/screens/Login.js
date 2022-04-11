@@ -15,8 +15,13 @@ import Button from '../components/Button';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginAction} from '../redux/actions/auth';
 import {useNavigation} from '@react-navigation/native';
-import {COLOR_ACCENT, REGISTER_NAV, TOGGLE_LOADING} from '../helpers/utils';
-import {useToast, Alert, Spinner} from 'native-base';
+import {
+  COLOR_ACCENT,
+  FORGOT_PASSWORD_NAV,
+  REGISTER_NAV,
+  TOGGLE_LOADING,
+} from '../helpers/utils';
+import {useToast, Alert, Spinner, Pressable} from 'native-base';
 
 const Login = () => {
   const messages = useSelector(state => state.messages);
@@ -80,9 +85,9 @@ const Login = () => {
               onChangeText={setPassword}
             />
           </View>
-          <View style={globalStyle.mb5}>
+          <Pressable mb={5} onPress={() => navigate.push(FORGOT_PASSWORD_NAV)}>
             <Text style={globalStyle.anchorUnderline}>Forgot Password?</Text>
-          </View>
+          </Pressable>
           <View style={globalStyle.mb3}>
             <Button color="#00ADB5" onPress={handleLogin}>
               {isLoading && <Spinner color={COLOR_ACCENT} size="lg" />}

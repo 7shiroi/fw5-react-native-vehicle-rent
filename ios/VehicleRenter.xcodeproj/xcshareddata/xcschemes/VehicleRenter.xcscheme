@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "fwtest.app"
-               BlueprintName = "fwtest"
-               ReferencedContainer = "container:fwtest.xcodeproj">
+               BuildableName = "VehicleRenter.app"
+               BlueprintName = "VehicleRenter"
+               ReferencedContainer = "container:VehicleRenter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "fwtestTests.xctest"
-               BlueprintName = "fwtestTests"
-               ReferencedContainer = "container:fwtest.xcodeproj">
+               BuildableName = "VehicleRenterTests.xctest"
+               BlueprintName = "VehicleRenterTests"
+               ReferencedContainer = "container:VehicleRenter.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "fwtest.app"
-            BlueprintName = "fwtest"
-            ReferencedContainer = "container:fwtest.xcodeproj">
+            BuildableName = "VehicleRenter.app"
+            BlueprintName = "VehicleRenter"
+            ReferencedContainer = "container:VehicleRenter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "fwtest.app"
-            BlueprintName = "fwtest"
-            ReferencedContainer = "container:fwtest.xcodeproj">
+            BuildableName = "VehicleRenter.app"
+            BlueprintName = "VehicleRenter"
+            ReferencedContainer = "container:VehicleRenter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

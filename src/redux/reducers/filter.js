@@ -7,8 +7,8 @@ const initialState = {
     maxPrice: null,
     location: null,
     idCategory: null,
-    // hasPrepayment: false,
-    // isAvailable: true,
+    hasPrepayment: null,
+    isAvailable: null,
     page: 1,
     limit: 10,
   },
@@ -17,11 +17,11 @@ const initialState = {
 const filter = (state = initialState, action) => {
   switch (action.type) {
     case SET_FILTER: {
-      state.options = action.payload;
+      state.options = {...state.options, ...action.payload};
       return {...state};
     }
     case CLEAR_FILTER: {
-      state.options = initialState;
+      state = initialState;
       return {...state};
     }
     default: {

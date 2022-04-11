@@ -4,7 +4,7 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 import globalStyles from '../assets/style';
 import {useNavigation} from '@react-navigation/native';
 
-const BackHeader = ({children}) => {
+const BackHeader = ({containerStyle, children}) => {
   const navigate = useNavigation();
   return (
     <View
@@ -13,6 +13,7 @@ const BackHeader = ({children}) => {
         globalStyles.mx3,
         globalStyles.my3,
         styles.container,
+        containerStyle,
       ]}>
       <TouchableOpacity
         onPress={() => {

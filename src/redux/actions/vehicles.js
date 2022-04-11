@@ -4,8 +4,10 @@ import {
   SET_ERROR,
   GET_DETAIL_VEHICLE,
   SET_REGISTERED_LOCATIONS,
+  SET_MESSAGE,
 } from '../../helpers/utils';
 import qs from 'qs';
+import {rnFetchDataToObject} from '../../helpers/converter';
 
 // export const getVehiclesAction = async dispatch => {
 //   try {
@@ -19,13 +21,14 @@ import qs from 'qs';
 export const getVehiclesAction = queryString => {
   return async dispatch => {
     try {
+      console.log(queryString);
+      console.log(`/vehicle?${qs.stringify(queryString)}`);
       const {data} = await http().get(`/vehicle?${qs.stringify(queryString)}`);
       dispatch({
         type: SET_VEHICLES_DATA,
         payload: {result: data.result, pageInfo: data.pageinfo},
       });
     } catch (error) {
-      console.log(error.response);
       dispatch({type: SET_ERROR, payload: error.response.data.message});
     }
   };
@@ -76,4 +79,27 @@ export const getRegisteredLocationsAction = async dispatch => {
   } catch (error) {
     dispatch({type: SET_ERROR, payload: error.response.data.message});
   }
+};
+
+export const addVehicleAction = (token, inputData) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(token, true, 'POST', 'vehicle', inputData);
+      const response = rnFetchDataToObject(data);
+      if (response.success === 'false') {
+        throw response.message
+          ? response.message.replaceAll('"', '')
+          : response.error.replaceAll('"', '');
+      } else {
+        dispatch({
+          type: SET_MESSAGE,
+          payload: response.message.replaceAll('"', ''),
+        });
+      }
+    } catch (e) {
+      if (typeof e === 'string') {
+        dispatch({type: SET_ERROR, payload: e});
+      }
+    }
+  };
 };

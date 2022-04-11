@@ -7,10 +7,12 @@ export const COLOR_GREY = '#EEEEEE';
 export const LOGIN_NAV = 'Login';
 export const REGISTER_NAV = 'Register';
 export const FORGOT_PASSWORD_NAV = 'Forgot Password';
+export const RESET_PASSWORD_NAV = 'Reset Password';
 export const MAIN_NAV = 'Main Menu';
 export const HOME_NAV = 'Home';
 export const PROFILE_NAV = 'Profile';
 export const UPDATE_PROFILE_NAV = 'Update Profile';
+export const VERIFY_USER_NAV = 'Verify User';
 export const SEARCH_NAV = 'Search';
 export const CATEGORY_NAV = 'Category';
 export const ORDER_NAV = 'Order';
@@ -19,6 +21,7 @@ export const HISTORY_NAV = 'History';
 export const CHAT_NAV = 'Chat';
 export const FILTER_NAV = 'Filter';
 export const BOTTOM_TAB_NAV = 'Bottom Tab';
+export const ADMIN_ADD_ITEMS = 'Admin Add Item';
 
 //REDUCERS
 //Loading
@@ -45,6 +48,11 @@ export const CLEAR_FILTER = 'CLEAR_FILTER';
 //TRANSACTION
 export const SET_TRANSACTION_DATA = 'SET_TRANSACTION_DATA';
 export const CLEAR_TRANSACTION_DATA = 'CLEAR_TRANSACTION_DATA';
+//HISTORY
+export const GET_HISTORY_DATA = 'GET_HISTORY_DATA';
+//FORGOT PASSWORD
+export const SET_FORGOT_PASSWORD_DATA = 'SET_FORGOT_PASSWORD_DATA';
+export const RESET_FORGOT_PASSWORD_DATA = 'RESET_FORGOT_PASSWORD_DATA';
 
 //EXTRAS
 export const BACKEND_URL = 'http://localhost:5000/';
