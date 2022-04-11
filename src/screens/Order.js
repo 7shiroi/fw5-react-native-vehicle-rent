@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import globalStyles from '../assets/style';
 import OrderHeader from '../components/OrderHeader';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -8,20 +8,32 @@ import {
   COLOR_ACCENT,
   COLOR_PRIMARY,
   PAYMENT_NAV,
+  TOGGLE_LOADING,
   VERIFY_USER_NAV,
 } from '../helpers/utils';
 import InputField from '../components/InputField';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {dateToString, stringToIdr} from '../helpers/converter';
-import {Modal, ScrollView, Select, Button as ButtonNB} from 'native-base';
+import {
+  Modal,
+  ScrollView,
+  Select,
+  Button as ButtonNB,
+  useToast,
+  Spinner,
+} from 'native-base';
 import Button from '../components/Button';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {setTransactionData} from '../redux/actions/transaction';
+import {getDetailVehicle} from '../redux/actions/vehicles';
 
 const Order = () => {
+  const route = useRoute();
+  const {id} = route.params;
   const navigate = useNavigation();
   const dispatch = useDispatch();
+  const toast = useToast();
   const {detailData} = useSelector(state => state.vehicles);
   const profile = useSelector(state => state.auth.userData);
   const [qty, setQty] = useState(1);
@@ -29,6 +41,7 @@ const Order = () => {
   const [date, setDate] = useState(new Date());
   const [dateChanged, setDateChanged] = useState(false);
   const [showModalVerify, setShowModalVerify] = useState(false);
+  const [showModalLoading, setShowModalLoading] = useState(true);
   const onChange = (e, selectedDate) => {
     setDate(selectedDate);
     setDateChanged(true);
@@ -40,6 +53,16 @@ const Order = () => {
       onChange,
       mode: 'date',
     });
+  };
+
+  useEffect(() => {
+    fetchDetailData(id);
+  }, []);
+  const fetchDetailData = async id => {
+    dispatch({type: TOGGLE_LOADING});
+    await dispatch(getDetailVehicle(id));
+    dispatch({type: TOGGLE_LOADING});
+    setShowModalLoading(false);
   };
 
   const decrementButton = () => {
@@ -57,6 +80,8 @@ const Order = () => {
   const handleBook = () => {
     if (profile.is_verified === 0) {
       setShowModalVerify(true);
+    } else if (detailData.is_available === 0) {
+      toast.show({description: 'Sorry! Vehicle is not available'});
     } else {
       const data = {startDate: date, rentDuration, quantity: qty};
       dispatch(setTransactionData(data));
@@ -179,6 +204,19 @@ const Order = () => {
               <Text>Go Verify</Text>
             </ButtonNB>
           </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+      <Modal
+        isOpen={showModalLoading}
+        closeOnOverlayClick={false}
+        onClose={() => setShowModalLoading(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Body
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="row">
+            <Spinner size="lg" /> <Text>Loading</Text>
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </ScrollView>

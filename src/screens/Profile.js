@@ -8,6 +8,7 @@ import Button from '../components/Button';
 import {
   AUTH_LOGOUT,
   COLOR_ACCENT,
+  COLOR_GREY,
   RESET_MESSAGE_STATE,
   TOGGLE_LOADING,
   UPDATE_PROFILE_NAV,
@@ -16,6 +17,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProfileAction} from '../redux/actions/auth';
+import {Box} from 'native-base';
 
 const Profile = () => {
   const navigate = useNavigation();
@@ -47,12 +49,22 @@ const Profile = () => {
           globalStyle.py3,
           globalStyle.px2,
         ]}>
-        <Image
-          source={
-            auth.userData.picture ? {uri: auth.userData.picture} : PROFILE
-          }
-          style={styles.circle}
-        />
+        <Box
+          w={60}
+          h={60}
+          borderRadius={30}
+          justifyContent="center"
+          alignItems="center"
+          backgroundColor={'muted.200'}>
+          {auth.userData.picture ? (
+            <Image
+              source={{uri: auth.userData.picture}}
+              style={styles.circle}
+            />
+          ) : (
+            <IconFA name="user" size={40} />
+          )}
+        </Box>
         <View style={globalStyle.gap4} />
         <Text style={styles.userName}>{auth.userData.name}</Text>
       </View>

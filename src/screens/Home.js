@@ -5,7 +5,7 @@ import HomeHeader from '../components/HomeHeader';
 import HomeSearch from '../components/HomeSearch';
 import RecommendList from '../components/RecommendList';
 import {useDispatch, useSelector} from 'react-redux';
-import {ADMIN_ADD_ITEMS, TOGGLE_LOADING} from '../helpers/utils';
+import {ADMIN_ADD_ITEMS, COLOR_PRIMARY, TOGGLE_LOADING} from '../helpers/utils';
 import {getCategoriesAction} from '../redux/actions/categories';
 import {getPopularVehiclesAction} from '../redux/actions/vehicles';
 import {Box, Button, ScrollView} from 'native-base';
@@ -32,7 +32,7 @@ const Home = () => {
       <HomeSearch />
       <RecommendList />
       {auth.userData.id_role < 3 && (
-        <Box mx={5} my={5}>
+        <Box mx={5} my={5} backgroundColor={COLOR_PRIMARY}>
           <Button onPress={() => navigate.push(ADMIN_ADD_ITEMS)}>
             Add Item
           </Button>
