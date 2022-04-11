@@ -1,6 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {HStack, Image, Modal, VStack, Button as ButtonNB} from 'native-base';
+import {
+  HStack,
+  Image,
+  Modal,
+  VStack,
+  Button as ButtonNB,
+  Box,
+} from 'native-base';
 import {DUMMY1} from '../assets/images';
 import {dateToString, stringToIdr} from '../helpers/converter';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
@@ -8,7 +15,7 @@ import IconAD from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {TOGGLE_LOADING} from '../helpers/utils';
+import {COLOR_GREY, TOGGLE_LOADING} from '../helpers/utils';
 import {deleteHistoryAction, getHistoryAction} from '../redux/actions/history';
 
 const HistoryCard = ({data}) => {
@@ -24,13 +31,22 @@ const HistoryCard = ({data}) => {
   };
   return (
     <HStack justifyContent="space-between" alignItems="center" mx={5} py={3}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.imageContainer}
-          source={data.image ? {uri: data.image} : DUMMY1}
-          alt={data.vehicle_name}
-        />
-      </View>
+      <Box
+        w={100}
+        h={88}
+        backgroundColor={COLOR_GREY}
+        justifyContent="center"
+        alignItems="center">
+        {data.image ? (
+          <Image
+            style={styles.imageContainer}
+            source={{uri: data.image}}
+            alt={data.vehicle_name}
+          />
+        ) : (
+          <IconAD name="car" size={70} />
+        )}
+      </Box>
       <VStack>
         <Text style={styles.boldText}>{data.vehicle_name}</Text>
         <Text>

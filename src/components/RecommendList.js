@@ -13,41 +13,43 @@ import globalStyle from '../assets/style';
 import {DUMMY1, DUMMY2, HOMEHEADER} from '../assets/images/index';
 import dummyImage from '../assets/images/dummy1.png';
 import {useNavigation} from '@react-navigation/native';
-import {ORDER_NAV, TOGGLE_LOADING} from '../helpers/utils';
+import {COLOR_PRIMARY, ORDER_NAV, TOGGLE_LOADING} from '../helpers/utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   getDetailVehicle,
   getPopularVehiclesAction,
 } from '../redux/actions/vehicles';
+import {Box, Pressable} from 'native-base';
+import IconAD from 'react-native-vector-icons/AntDesign';
 
 const RecommendList = () => {
   const navigate = useNavigation();
   const vehicles = useSelector(state => state.vehicles);
-  const dispatch = useDispatch();
 
   const goToOrder = id => {
-    fetchDetailData(id);
-    navigate.push(ORDER_NAV);
-  };
-
-  const fetchDetailData = async id => {
-    dispatch({type: TOGGLE_LOADING});
-    await dispatch(getDetailVehicle(id));
-    dispatch({type: TOGGLE_LOADING});
+    navigate.push(ORDER_NAV, {id});
   };
 
   const RecommendItem = ({id, image, ...props}) => {
     return (
-      <TouchableOpacity
-        style={styles.imageItem}
+      <Pressable
         onPress={() => {
           goToOrder(id);
         }}>
-        <Image
-          source={image ? {uri: image} : DUMMY1}
-          style={styles.imageItemStyle}
-        />
-      </TouchableOpacity>
+        <Box
+          w={264}
+          h={168}
+          mx={5}
+          alignItems="center"
+          justifyContent="center"
+          backgroundColor={COLOR_PRIMARY}>
+          {image ? (
+            <Image source={{uri: image}} style={styles.imageItemStyle} />
+          ) : (
+            <IconAD name="car" size={100} />
+          )}
+        </Box>
+      </Pressable>
     );
   };
 
