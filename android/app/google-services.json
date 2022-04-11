@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "689021316624",
+    "project_id": "vehicle-renter-d7c15",
+    "storage_bucket": "vehicle-renter-d7c15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689021316624:android:4cced63716d85f1fb2e495",
+        "android_client_info": {
+          "package_name": "com.kwong.vehiclerenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689021316624-p4d5gurbpjggejm23aokh9833idafqc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kwong.vehiclerenter",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "689021316624-j8hdaq0qgaqnopqbi17bphv30j3shfac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0DtZ2RA0XFKhyJYrCAD5sBbQIM4RZI_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689021316624-j8hdaq0qgaqnopqbi17bphv30j3shfac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

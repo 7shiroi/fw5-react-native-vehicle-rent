@@ -41,6 +41,7 @@ import {DUMMY1} from '../assets/images';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import {randomBookingCode, randomNumber} from '../helpers/generator';
 import {useNavigation} from '@react-navigation/native';
+import PushNotification from 'react-native-push-notification';
 
 const Payment = () => {
   const [paymentType, setPaymentType] = useState(null);
@@ -51,10 +52,24 @@ const Payment = () => {
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigation();
+  PushNotification.createChannel({
+    channelId: 'booking-confirm',
+    channelName: 'Booking-confirm',
+  });
+  PushNotification.createChannel({
+    channelId: 'payment-finish',
+    channelName: 'payment-finish',
+  });
+
   const handleSeeOrderDetails = () => {
     if (!paymentType) {
       toast.show({description: 'Select payment type!'});
     } else {
+      PushNotification.localNotification({
+        channelId: 'booking-confirm',
+        title: 'Booking',
+        message: 'Your booking has been confirmed!',
+      });
       dispatch(setTransactionData({step: 2, paymentType}));
     }
   };
@@ -74,9 +89,15 @@ const Payment = () => {
       quantity: transaction.quantity,
       date_start: transaction.startDate,
       date_end: addDays(transaction.startDate, transaction.rentDuration - 1),
-      prepayment: vehicleData.price * 0.2,
+      prepayment: (vehicleData.price * 0.3).toFixed(2),
     };
+    console.log(vehicleData);
 
+    PushNotification.localNotification({
+      channelId: 'finish-payment',
+      title: 'Transaction finished!',
+      message: 'Thank you for renting our vehicle!',
+    });
     dispatch({type: TOGGLE_LOADING});
     await dispatch(saveTransaction(token, data));
     dispatch({type: TOGGLE_LOADING});

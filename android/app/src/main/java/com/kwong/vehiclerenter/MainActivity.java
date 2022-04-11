@@ -1,4 +1,4 @@
-package com.fwtest;
+package com.kwong.vehiclerenter;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "fwtest";
+    return "VehicleRenter";
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
