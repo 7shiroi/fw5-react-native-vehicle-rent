@@ -18,11 +18,9 @@ import {rnFetchDataToObject} from '../../helpers/converter';
 //   }
 // };
 
-export const getVehiclesAction = queryString => {
+export const getVehiclesAction = (queryString = {}) => {
   return async dispatch => {
     try {
-      console.log(queryString);
-      console.log(`/vehicle?${qs.stringify(queryString)}`);
       const {data} = await http().get(`/vehicle?${qs.stringify(queryString)}`);
       dispatch({
         type: SET_VEHICLES_DATA,
@@ -100,6 +98,49 @@ export const addVehicleAction = (token, inputData) => {
       if (typeof e === 'string') {
         dispatch({type: SET_ERROR, payload: e});
       }
+    }
+  };
+};
+
+export const updateVehicleAction = (token, inputData, id) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(
+        token,
+        true,
+        'PATCH',
+        `vehicle/${id}`,
+        inputData,
+      );
+      const response = rnFetchDataToObject(data);
+      if (response.success === 'false') {
+        throw response.message
+          ? response.message.replaceAll('"', '')
+          : response.error.replaceAll('"', '');
+      } else {
+        dispatch({
+          type: SET_MESSAGE,
+          payload: response.message.replaceAll('"', ''),
+        });
+      }
+      const {data: updatedVehicle} = await http().get(`vehicle/${id}`);
+      dispatch({type: GET_DETAIL_VEHICLE, payload: updatedVehicle.result});
+    } catch (e) {
+      if (typeof e === 'string') {
+        dispatch({type: SET_ERROR, payload: e});
+      }
+    }
+  };
+};
+
+export const deleteVehicleAction = (token, id) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(token).delete(`/vehicle/${id}`);
+      dispatch({type: SET_MESSAGE, payload: data.message});
+      dispatch(getVehiclesAction());
+    } catch (error) {
+      dispatch({type: SET_ERROR, payload: error.response.data.message});
     }
   };
 };
