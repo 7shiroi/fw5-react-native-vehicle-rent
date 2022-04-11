@@ -21,6 +21,8 @@ import {rnFetchDataToObject} from '../../helpers/converter';
 export const getVehiclesAction = queryString => {
   return async dispatch => {
     try {
+      console.log(queryString);
+      console.log(`/vehicle?${qs.stringify(queryString)}`);
       const {data} = await http().get(`/vehicle?${qs.stringify(queryString)}`);
       dispatch({
         type: SET_VEHICLES_DATA,

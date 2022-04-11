@@ -109,6 +109,7 @@ const Search = () => {
           data={vehicles.vehiclesData}
           onEndReached={handleGetNext}
           onEndReachedThreshold={0.5}
+          keyExtractor={obj => obj.id}
           renderItem={obj => {
             return (
               <TouchableOpacity
