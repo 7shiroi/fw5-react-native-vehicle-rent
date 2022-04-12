@@ -24,6 +24,7 @@ export const loginAction = (username, password) => {
       dispatch({type: AUTH_GET_PROFILE, payload: profile.result});
       dispatch({type: SET_MESSAGE, payload: data.message});
     } catch (e) {
+      console.log(e.response);
       dispatch({type: SET_ERROR, payload: e.response.data.message});
     }
   };

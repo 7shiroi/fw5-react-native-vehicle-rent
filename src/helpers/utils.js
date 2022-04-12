@@ -56,6 +56,7 @@ export const RESET_FORGOT_PASSWORD_DATA = 'RESET_FORGOT_PASSWORD_DATA';
 
 //EXTRAS
 export const BACKEND_URL = 'http://localhost:5000/';
+// export const BACKEND_URL = 'https://fw5-kelvin-backend-beginner.herokuapp.com/';
 export const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const BANK_ACCOUNT_NUMBER = '0290-90203-345-2';
 export const BANK_ACCOUNT_NAME = 'Vehicle Renter';

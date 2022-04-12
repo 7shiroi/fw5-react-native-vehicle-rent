@@ -14,7 +14,7 @@ import {
 import Stepper from '../components/Stepper';
 import InputField from '../components/InputField';
 import {
-  Center,
+  Button as ButtonNB,
   Flex,
   HStack,
   Image,
@@ -271,16 +271,20 @@ const Payment = () => {
             </View>
             <Text>Use booking code to pick up your vehicles</Text>
             <HStack space={3} width="100%" justifyContent="center">
-              <Button
-                color={COLOR_ACCENT}
-                styles={[globalStyles.px4, globalStyles.py2]}>
+              <ButtonNB
+                backgroundColor={COLOR_ACCENT}
+                // styles={[globalStyles.px4, globalStyles.py2]}
+                px={4}
+                py={2}>
                 <Text>Copy Payment Code</Text>
-              </Button>
-              <Button
-                color={COLOR_ACCENT}
-                styles={[globalStyles.px4, globalStyles.py2]}>
+              </ButtonNB>
+              <ButtonNB
+                backgroundColor={COLOR_ACCENT}
+                // styles={[globalStyles.px4, globalStyles.py2]}
+                px={4}
+                py={2}>
                 <Text>Copy Booking Code</Text>
-              </Button>
+              </ButtonNB>
             </HStack>
           </VStack>
           <VStack
