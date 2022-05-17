@@ -1,3 +1,5 @@
+const DEV = false;
+
 export const COLOR_PRIMARY = '#222831';
 export const COLOR_SECONDARY = '#393E46';
 export const COLOR_ACCENT = '#00ADB5';
@@ -55,8 +57,10 @@ export const SET_FORGOT_PASSWORD_DATA = 'SET_FORGOT_PASSWORD_DATA';
 export const RESET_FORGOT_PASSWORD_DATA = 'RESET_FORGOT_PASSWORD_DATA';
 
 //EXTRAS
-export const BACKEND_URL = 'http://localhost:5000/';
-// export const BACKEND_URL = 'https://fw5-kelvin-backend-beginner.herokuapp.com/';
+export const BACKEND_URL = DEV
+  ? 'http://localhost:5000/'
+  : 'https://vehicle-renter-backend.herokuapp.com/';
+
 export const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const BANK_ACCOUNT_NUMBER = '0290-90203-345-2';
 export const BANK_ACCOUNT_NAME = 'Vehicle Renter';
