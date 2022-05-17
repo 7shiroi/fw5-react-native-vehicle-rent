@@ -41,14 +41,7 @@ const Search = () => {
   };
 
   const goToOrder = id => {
-    fetchDetailData(id);
-    navigate.push(ORDER_NAV);
-  };
-
-  const fetchDetailData = async id => {
-    dispatch({type: TOGGLE_LOADING});
-    await dispatch(getDetailVehicle(id));
-    dispatch({type: TOGGLE_LOADING});
+    navigate.push(ORDER_NAV, {id});
   };
 
   const handleGetNext = async () => {

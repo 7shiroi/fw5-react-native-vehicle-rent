@@ -12,10 +12,12 @@ import {
   Stack,
   TextArea,
   useToast,
+  Box,
 } from 'native-base';
 import Button from '../components/Button';
 import {
   COLOR_ACCENT,
+  COLOR_GREY,
   RESET_MESSAGE_STATE,
   TOGGLE_LOADING,
 } from '../helpers/utils';
@@ -26,6 +28,7 @@ import {getProfileAction, updateProfileAction} from '../redux/actions/auth';
 import {emailValidation, phoneNumberValidation} from '../helpers/validator';
 import {launchImageLibrary} from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
+import IconFA from 'react-native-vector-icons/FontAwesome';
 
 const UpdateProfile = () => {
   const auth = useSelector(state => state.auth);
@@ -130,12 +133,23 @@ const UpdateProfile = () => {
   return (
     <ScrollView>
       <View style={[styles.header, globalStyles.mb4]}>
-        <Image
-          source={
-            auth.userData.picture ? {uri: auth.userData.picture} : PROFILE
-          }
-          style={[styles.profileImage, globalStyles.mb3]}
-        />
+        <Box
+          w={100}
+          h={100}
+          borderRadius={100}
+          my={5}
+          backgroundColor="muted.200"
+          justifyContent="center"
+          alignItems="center">
+          {auth.userData.picture ? (
+            <Image
+              source={{uri: auth.userData.picture}}
+              style={[styles.profileImage, globalStyles.mb3]}
+            />
+          ) : (
+            <IconFA name="user" size={70} />
+          )}
+        </Box>
         <Center mb={3}>
           <Button color={COLOR_ACCENT} onPress={handleUploadImage}>
             <Text style={[globalStyles.px3]}>Update Profile Picture</Text>

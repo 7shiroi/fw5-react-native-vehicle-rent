@@ -4,16 +4,25 @@ import Container from './Container';
 import globalStyle from '../assets/style';
 import {stringToIdr} from '../helpers/converter';
 import {DUMMY3} from '../assets/images';
+import {Box} from 'native-base';
+import {COLOR_GREY} from '../helpers/utils';
+import IconAD from 'react-native-vector-icons/AntDesign';
 
 const ItemCard = ({data}) => {
   return (
     <Container style={globalStyle.flexRow}>
-      <View style={styles.imageItem}>
-        <Image
-          style={styles.imageItem}
-          source={data.image ? {uri: data.image} : DUMMY3}
-        />
-      </View>
+      <Box
+        w={120}
+        h={120}
+        alignItems="center"
+        justifyContent="center"
+        backgroundColor={COLOR_GREY}>
+        {data.image ? (
+          <Image style={styles.imageItem} source={{uri: data.image}} />
+        ) : (
+          <IconAD name="car" size={70} />
+        )}
+      </Box>
       <View style={globalStyle.gap2} />
       <View style={styles.itemInfo}>
         <View>

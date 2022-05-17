@@ -6,9 +6,14 @@ import RNDateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import Button from './Button';
-import {COLOR_ACCENT, SEARCH_NAV, TOGGLE_LOADING} from '../helpers/utils';
+import {
+  COLOR_ACCENT,
+  COLOR_PRIMARY,
+  SEARCH_NAV,
+  TOGGLE_LOADING,
+} from '../helpers/utils';
 import {dateToString} from '../helpers/converter';
-import {Select} from 'native-base';
+import {Select, VStack} from 'native-base';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
@@ -33,7 +38,7 @@ const HomeSearch = () => {
   };
 
   return (
-    <View style={globalStyle.bgPrimary}>
+    <VStack backgroundColor={COLOR_PRIMARY} px={5} py={5}>
       <View style={[globalStyle.my3, globalStyle.flexRow]}>
         <InputField
           style={globalStyle.flex1}
@@ -79,7 +84,7 @@ const HomeSearch = () => {
           <Text>Search Vehicle</Text>
         </Button>
       </View>
-    </View>
+    </VStack>
   );
 };
 

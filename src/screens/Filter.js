@@ -48,11 +48,14 @@ const Filter = () => {
   const [rating, setRating] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
   const [prepayment, setPrepayment] = useState(false);
+  const [orderBy, setOrderBy] = useState('asc');
+  const [sortBy, setSortBy] = useState('name');
   const [showModalSearch, setShowModalSearch] = useState(false);
   const [showModalRating, setShowModalRating] = useState(false);
   const [showModalMinPrice, setShowModalMinPrice] = useState(false);
   const [showModalMaxPrice, setShowModalMaxPrice] = useState(false);
   const [showModalType, setShowModalType] = useState(false);
+  const [showModalSort, setShowModalSort] = useState(false);
 
   useEffect(() => {
     fetchLocationData();
@@ -75,9 +78,13 @@ const Filter = () => {
       idCategory: categoryId,
       hasPrepayment: prepayment ? 1 : 0,
       isAvailable: isAvailable ? 1 : 0,
+      sort: sortBy,
+      order: orderBy,
     };
     dispatch({type: SET_FILTER, payload: filterData});
+    dispatch({type: TOGGLE_LOADING});
     await dispatch(getVehiclesAction(filter.options));
+    dispatch({type: TOGGLE_LOADING});
     navigate.replace(SEARCH_NAV);
   };
 
@@ -175,6 +182,23 @@ const Filter = () => {
               isChecked={isAvailable}
               onValueChange={setIsAvailable}
             />
+          </Pressable>
+        </HStack>
+
+        <HStack alignItems="center" justifyContent="space-between" py={2}>
+          <Text>Sort By</Text>
+          <Pressable
+            flexDirection="row"
+            onPress={() => {
+              setShowModalSort(true);
+            }}>
+            <Text>
+              {sortBy
+                ? `${sortBy} ${orderBy === 'asc' ? 'ascending' : 'descending'}`
+                : 'Select'}
+            </Text>
+            <View style={globalStyles.gap2} />
+            <IconFA name="chevron-right" size={20} />
           </Pressable>
         </HStack>
       </VStack>
@@ -300,6 +324,50 @@ const Filter = () => {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
+
+      <Modal isOpen={showModalSort} onClose={() => setShowModalSort(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Body>
+            <Text style={globalStyles.mb3}>Sort by</Text>
+            <Picker
+              style={styles.pickerSortStyle}
+              selectedValue={sortBy ? sortBy : 'price'}
+              pickerData={[
+                'name',
+                'color',
+                'price',
+                'capacity',
+                'stock',
+                'category',
+              ]}
+              onValueChange={value => {
+                setSortBy(value);
+              }}
+              textSize={20}
+            />
+            <Picker
+              style={styles.pickerStyle}
+              selectedValue={orderBy ? orderBy : 'asc'}
+              pickerData={[
+                {label: 'ascending', value: 'asc'},
+                {label: 'descending', value: 'desc'},
+              ]}
+              onValueChange={value => {
+                setOrderBy(value);
+              }}
+              textSize={20}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <ButtonNB
+              onPress={() => {
+                setShowModalSort(false);
+              }}>
+              <Text>Save</Text>
+            </ButtonNB>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </VStack>
   );
 };
@@ -314,5 +382,10 @@ const styles = StyleSheet.create({
   pickerStyle: {
     backgroundColor: 'white',
     height: 80,
+  },
+  pickerSortStyle: {
+    backgroundColor: 'white',
+    height: 80,
+    marginBottom: 20,
   },
 });
