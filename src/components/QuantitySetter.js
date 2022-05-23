@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Box, HStack} from 'native-base';
+import globalStyles from '../assets/style';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
@@ -54,12 +55,12 @@ const QuantitySetter = ({
                   ? 'primary.400'
                   : 'primary.300'
               }>
-              <IconFA name="minus" size={16} />
+              <IconFA name="minus" size={16} color="#fff" />
             </Box>
           );
         }}
       </Pressable>
-      <Text style={styles.valueText}>{value}</Text>
+      <Text style={[styles.valueText]}>{value}</Text>
       <Pressable onPress={handleIncrement}>
         {({isPressed, isHovered}) => {
           return (
@@ -76,7 +77,7 @@ const QuantitySetter = ({
                   ? 'primary.500'
                   : 'primary.400'
               }>
-              <IconFA name="plus" size={16} />
+              <IconFA name="plus" size={16} color="#fff" />
             </Box>
           );
         }}
@@ -91,5 +92,6 @@ const styles = StyleSheet.create({
   valueText: {
     fontWeight: 'bold',
     fontSize: 18,
+    color: '#fff',
   },
 });
