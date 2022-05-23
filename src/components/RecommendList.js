@@ -56,11 +56,11 @@ const RecommendList = () => {
   return (
     <View style={[globalStyle.bgSecondary, globalStyle.py3]}>
       <Container style={[styles.titleContainer, globalStyle.mb5]}>
-        <Text>Recommended</Text>
+        <Text style={globalStyle.textWhite}>Recommended</Text>
         <View style={styles.viewMore}>
-          <Text>View More</Text>
+          <Text style={globalStyle.textWhite}>View More</Text>
           <View style={globalStyle.gap2} />
-          <IconFa name="chevron-right" size={20} />
+          <IconFa color="#fff" name="chevron-right" size={20} />
         </View>
       </Container>
       <FlatList

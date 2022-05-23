@@ -62,51 +62,53 @@ const Profile = () => {
               style={styles.circle}
             />
           ) : (
-            <IconFA name="user" size={40} />
+            <IconFA color="#fff" name="user" size={40} />
           )}
         </Box>
         <View style={globalStyle.gap4} />
-        <Text style={styles.userName}>{auth.userData.name}</Text>
+        <Text style={[styles.userName, globalStyle.textWhite]}>
+          {auth.userData.name}
+        </Text>
       </View>
       <View style={[globalStyle.bgSecondary, globalStyle.flex1]}>
         <Button
           color="unset"
           buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}>
-          <Text>Your favorites</Text>
-          <IconFA name="chevron-right" size={20} />
+          <Text style={globalStyle.textWhite}>Your favorites</Text>
+          <IconFA color="#fff" name="chevron-right" size={20} />
         </Button>
         <Button
           color="unset"
           buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}>
-          <Text>FAQ</Text>
-          <IconFA name="chevron-right" size={20} />
+          <Text style={globalStyle.textWhite}>FAQ</Text>
+          <IconFA color="#fff" name="chevron-right" size={20} />
         </Button>
         <Button
           color="unset"
           buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}>
-          <Text>Help</Text>
-          <IconFA name="chevron-right" size={20} />
+          <Text style={globalStyle.textWhite}>Help</Text>
+          <IconFA color="#fff" name="chevron-right" size={20} />
         </Button>
         <Button
           color="unset"
           buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}
           onPress={() => navigate.push(UPDATE_PROFILE_NAV)}>
-          <Text>Update Profile</Text>
-          <IconFA name="chevron-right" size={20} />
+          <Text style={globalStyle.textWhite}>Update Profile</Text>
+          <IconFA color="#fff" name="chevron-right" size={20} />
         </Button>
         {auth.userData.is_verified === 0 && (
           <Button
             color="unset"
             buttonStyle={[styles.menuButton, globalStyle.px5, globalStyle.py4]}
             onPress={() => navigate.push(VERIFY_USER_NAV)}>
-            <Text>Verify Account</Text>
-            <IconFA name="chevron-right" size={20} />
+            <Text style={globalStyle.textWhite}>Verify Account</Text>
+            <IconFA color="#fff" name="chevron-right" size={20} />
           </Button>
         )}
       </View>
       <View style={[globalStyle.bgSecondary, globalStyle.px4, globalStyle.py3]}>
         <Button color={COLOR_ACCENT} onPress={handleLogout}>
-          <Text>Logout</Text>
+          <Text style={globalStyle.textWhite}>Logout</Text>
         </Button>
       </View>
     </View>
