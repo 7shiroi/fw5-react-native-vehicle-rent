@@ -41,7 +41,7 @@ const HomeSearch = () => {
     <VStack backgroundColor={COLOR_PRIMARY} px={5} py={5}>
       <View style={[globalStyle.my3, globalStyle.flexRow]}>
         <InputField
-          style={globalStyle.flex1}
+          style={[globalStyle.flex1, globalStyle.textWhite, globalStyle.me3]}
           name="location"
           placeholder="Search location"
         />
@@ -49,6 +49,7 @@ const HomeSearch = () => {
           placeholder="Category"
           selectedValue={category}
           minWidth={75}
+          color="white"
           onValueChange={nextValue => setCategory(nextValue)}>
           {categories.categoriesData.map(obj => {
             return <Select.Item key={obj.id} value={obj.id} label={obj.name} />;
@@ -57,7 +58,7 @@ const HomeSearch = () => {
       </View>
       <View style={[globalStyle.mb5, globalStyle.flexRow]}>
         <InputField
-          style={globalStyle.flex1}
+          style={[globalStyle.flex1, globalStyle.textWhite, globalStyle.me3]}
           name="date"
           placeholder="Search Date"
           onFocus={handleShowDatePicker}
@@ -67,6 +68,7 @@ const HomeSearch = () => {
           placeholder="days"
           selectedValue={category}
           minWidth={75}
+          color="white"
           onValueChange={nextValue => setCategory(nextValue)}>
           <Select.Item value="1" label="1 Day" />
           <Select.Item value="2" label="2 Days" />
@@ -81,7 +83,7 @@ const HomeSearch = () => {
           onPress={() => {
             navigate.push(SEARCH_NAV);
           }}>
-          <Text>Search Vehicle</Text>
+          <Text style={globalStyle.textWhite}>Search Vehicle</Text>
         </Button>
       </View>
     </VStack>

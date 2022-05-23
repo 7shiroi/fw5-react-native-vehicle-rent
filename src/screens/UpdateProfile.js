@@ -131,7 +131,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={globalStyles.bgPrimary}>
       <View style={[styles.header, globalStyles.mb4]}>
         <Box
           w={100}
@@ -152,7 +152,9 @@ const UpdateProfile = () => {
         </Box>
         <Center mb={3}>
           <Button color={COLOR_ACCENT} onPress={handleUploadImage}>
-            <Text style={[globalStyles.px3]}>Update Profile Picture</Text>
+            <Text style={[globalStyles.px3, globalStyles.textWhite]}>
+              Update Profile Picture
+            </Text>
           </Button>
         </Center>
         <Radio.Group
@@ -163,36 +165,76 @@ const UpdateProfile = () => {
             setGender(nextValue);
           }}>
           <Stack direction="row" mt="3" space={15}>
-            <Radio shadow={2} colorScheme="primary" value="male">
-              Male
+            <Radio shadow={2} colorScheme="white" value="male">
+              <View>
+                <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                  Male
+                </Text>
+              </View>
             </Radio>
             <Radio shadow={2} colorScheme="primary" value="female">
-              Female
+              <View>
+                <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                  Female
+                </Text>
+              </View>
             </Radio>
           </Stack>
         </Radio.Group>
       </View>
       <FormControl flex={1}>
         <Stack mx={5}>
-          <FormControl.Label>Name</FormControl.Label>
-          <Input type="text" mb={3} value={name} onChangeText={setName} />
-          <FormControl.Label>Email Address</FormControl.Label>
+          <FormControl.Label>
+            <View>
+              <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                Name
+              </Text>
+            </View>
+          </FormControl.Label>
+          <Input
+            type="text"
+            mb={3}
+            value={name}
+            onChangeText={setName}
+            color="white"
+          />
+          <FormControl.Label>
+            <View>
+              <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                Email Address
+              </Text>
+            </View>
+          </FormControl.Label>
           <Input
             type="email"
             keyboardType="email-address"
             value={email}
             mb={3}
             onChangeText={setEmail}
+            color="white"
           />
-          <FormControl.Label>Phone Number</FormControl.Label>
+          <FormControl.Label>
+            <View>
+              <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                Phone Number
+              </Text>
+            </View>
+          </FormControl.Label>
           <Input
             type="text"
             keyboardType="phone-pad"
             value={phoneNumber}
             mb={3}
             onChangeText={setPhoneNumber}
+            color="white"
           />
-          <FormControl.Label>Date of Birth</FormControl.Label>
+          <FormControl.Label>
+            <View>
+              <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                Date of Birth
+              </Text>
+            </View>
+          </FormControl.Label>
           <Input
             type="date"
             value={
@@ -202,26 +244,41 @@ const UpdateProfile = () => {
             }
             onFocus={handleShowDatePicker}
             mb={3}
+            color="white"
           />
-          <FormControl.Label>Delivery Address</FormControl.Label>
-          <TextArea h={20} value={address} mb={5} onChangeText={setAdress} />
+          <FormControl.Label>
+            <View>
+              <Text style={[globalStyles.mx3, globalStyles.textWhite]}>
+                Delivery Address
+              </Text>
+            </View>
+          </FormControl.Label>
+          <TextArea
+            h={20}
+            value={address}
+            mb={5}
+            onChangeText={setAdress}
+            color="white"
+          />
         </Stack>
       </FormControl>
       {messages.error && (
         <Alert mx={3}>
-          <Text>{messages.errorMsg}</Text>
+          <Text style={globalStyles.textWhite}>{messages.errorMsg}</Text>
         </Alert>
       )}
       {messages.msg.includes('has been updated') && (
         <Alert mx={3}>
-          <Text>Your profile has been updated!</Text>
+          <Text style={globalStyles.textWhite}>
+            Your profile has been updated!
+          </Text>
         </Alert>
       )}
       <Button
         onPress={handleUpdateProfile}
         color={COLOR_ACCENT}
         buttonStyle={[globalStyles.py4, globalStyles.my2, globalStyles.mx3]}>
-        <Text>Save Change</Text>
+        <Text style={globalStyles.textWhite}>Save Change</Text>
       </Button>
     </ScrollView>
   );

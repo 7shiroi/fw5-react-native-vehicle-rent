@@ -64,6 +64,21 @@ module.exports = StyleSheet.create({
   mx5: {
     marginHorizontal: 25,
   },
+  me1: {
+    marginEnd: 5,
+  },
+  me2: {
+    marginEnd: 10,
+  },
+  me3: {
+    marginEnd: 15,
+  },
+  me4: {
+    marginEnd: 20,
+  },
+  me5: {
+    marginEnd: 25,
+  },
   pb1: {
     paddingBottom: 5,
   },
@@ -147,7 +162,7 @@ module.exports = StyleSheet.create({
     fontWeight: 'bold',
   },
   darkenedBg: {
-    opacity: 0.4,
+    opacity: 0.7,
   },
   bgPrimary: {
     backgroundColor: '#222831',
@@ -166,5 +181,8 @@ module.exports = StyleSheet.create({
   },
   flex1: {
     flex: 1,
+  },
+  textWhite: {
+    color: '#fff',
   },
 });

@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MainMenu from './MainMenu';
 import Profile from './Profile';
@@ -9,11 +9,23 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import History from './History';
+import {COLOR_PRIMARY} from '../helpers/utils';
+import {BlurView} from 'expo-blur';
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator screenOptions={{tabBarShowLabel: false}}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarBackground: () => {
+          <BlurView
+            tint="light"
+            intensity={100}
+            style={styles.tabBackground}
+          />;
+        },
+      }}>
       <Tab.Screen
         options={{
           headerShown: false,
@@ -53,3 +65,11 @@ const BottomTab = () => {
 };
 
 export default BottomTab;
+
+const styles = StyleSheet.create({
+  tabBackground: {
+    backgroundColor: COLOR_PRIMARY,
+    borderColor: '#000',
+    borderWidth: 3,
+  },
+});
