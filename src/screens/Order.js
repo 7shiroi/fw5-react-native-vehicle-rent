@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import globalStyles from '../assets/style';
-import OrderHeader from '../components/OrderHeader';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import {
@@ -147,7 +146,7 @@ const Order = () => {
     navigate.goBack();
   };
   return (
-    <ScrollView>
+    <ScrollView style={globalStyles.bgPrimary}>
       <VStack>
         <Box style={styles.container} position="relative">
           {detailData.image ? (
@@ -202,7 +201,9 @@ const Order = () => {
                   end={{x: 1, y: 0}}
                   colors={['#00ADB5', '#006778']}
                   style={[styles.rating, globalStyles.mx3]}>
-                  <Text style={styles.ratingText}>4.5</Text>
+                  <Text style={[styles.ratingText, globalStyles.textWhite]}>
+                    4.5
+                  </Text>
                 </LinearGradient>
                 <IconAD
                   name={true ? 'heart' : 'hearto'}
@@ -215,23 +216,29 @@ const Order = () => {
         </Box>
         <View style={[globalStyles.mx4, globalStyles.my3]}>
           <View style={[globalStyles.flexRow, styles.titleContainer]}>
-            <Text style={[globalStyles.flex1, styles.titleText]}>
+            <Text
+              style={[
+                globalStyles.flex1,
+                globalStyles.textWhite,
+                styles.titleText,
+              ]}>
               {detailData.name}
             </Text>
-            <IconIonicons
-              name="chatbubble-outline"
-              size={25}
-              color={COLOR_PRIMARY}
-            />
+            <IconIonicons name="chatbubble-outline" size={25} color="#fff" />
           </View>
-          <Text style={[styles.titleText, globalStyles.mb4]}>
+          <Text
+            style={[
+              styles.titleText,
+              globalStyles.mb4,
+              globalStyles.textWhite,
+            ]}>
             Rp {stringToIdr(detailData.price)}/day
           </Text>
-          <Text>
+          <Text style={globalStyles.textWhite}>
             Max for {detailData.capacity}{' '}
             {detailData.capacity > 1 ? 'people' : 'person'}
           </Text>
-          <Text>
+          <Text style={globalStyles.textWhite}>
             {detailData.has_prepayent
               ? `Minimal Prepayment: ${stringToIdr(detailData.price * 0.1)} `
               : 'No Prepayment'}
@@ -251,14 +258,14 @@ const Order = () => {
               styles.titleContainer,
               globalStyles.mb5,
             ]}>
-            <IconIonicons name="location-outline" size={25} />
+            <IconIonicons name="location-outline" size={25} color="#fff" />
             <View style={globalStyles.gap3} />
-            <Text>{detailData.location}</Text>
+            <Text style={globalStyles.textWhite}>{detailData.location}</Text>
           </View>
           {profile.id_role < 3 ? (
             <VStack space={5}>
               <View style={[globalStyles.flexRow, styles.quantityContainer]}>
-                <Text>Stock</Text>
+                <Text style={globalStyles.textWhite}>Stock</Text>
                 <QuantitySetter onChangeValue={setStock} />
               </View>
               <Box flexDirection="row" w="100%" justifyContent="space-around">
@@ -305,7 +312,7 @@ const Order = () => {
                   styles.quantityContainer,
                   globalStyles.mb4,
                 ]}>
-                <Text>Quantity</Text>
+                <Text style={globalStyles.textWhite}>Quantity</Text>
                 <View style={globalStyles.flexRow}>
                   <TouchableOpacity onPress={decrementButton}>
                     <IconFA
@@ -315,7 +322,9 @@ const Order = () => {
                     />
                   </TouchableOpacity>
                   <View style={globalStyles.gap4} />
-                  <Text style={styles.quantityText}>{qty}</Text>
+                  <Text style={[styles.quantityText, globalStyles.textWhite]}>
+                    {qty}
+                  </Text>
                   <View style={globalStyles.gap4} />
                   <TouchableOpacity onPress={incrementButton}>
                     <IconFA name="plus-circle" size={20} color={COLOR_ACCENT} />
@@ -328,12 +337,14 @@ const Order = () => {
                   name="date"
                   placeholder="Search Date"
                   onFocus={handleShowDatePicker}
+                  color="white"
                   value={dateChanged ? dateToString(date) : ''}
                 />
                 <View style={globalStyles.gap2} />
                 <Select
                   selectedValue={rentDuration}
                   minWidth={75}
+                  color="white"
                   onValueChange={nextValue => setRentDuration(nextValue)}
                   accessibilityLabel="Select rent duration">
                   <Select.Item label="1 Day" value="1" />
@@ -350,7 +361,9 @@ const Order = () => {
                 onPress={handleBook}
                 style={[globalStyles.py3]}
                 color={COLOR_ACCENT}>
-                <Text style={styles.titleText}>Book Now</Text>
+                <Text style={[styles.titleText, globalStyles.textWhite]}>
+                  Book Now
+                </Text>
               </Button>
             </>
           )}
@@ -361,7 +374,9 @@ const Order = () => {
           onClose={() => setShowModalVerify(false)}>
           <Modal.Content maxWidth="400px">
             <Modal.Body alignItems="center">
-              <Text>You have to verify your account first!</Text>
+              <Text style={globalStyles.textWhite}>
+                You have to verify your account first!
+              </Text>
             </Modal.Body>
             <Modal.Footer>
               <ButtonNB
@@ -369,13 +384,13 @@ const Order = () => {
                 onPress={() => {
                   setShowModalVerify(false);
                 }}>
-                <Text>Cancel</Text>
+                <Text style={globalStyles.textWhite}>Cancel</Text>
               </ButtonNB>
               <ButtonNB
                 onPress={() => {
                   navigate.push(VERIFY_USER_NAV);
                 }}>
-                <Text>Go Verify</Text>
+                <Text style={globalStyles.textWhite}>Go Verify</Text>
               </ButtonNB>
             </Modal.Footer>
           </Modal.Content>
@@ -389,7 +404,8 @@ const Order = () => {
               alignItems="center"
               justifyContent="center"
               flexDirection="row">
-              <Spinner size="lg" /> <Text>Loading</Text>
+              <Spinner size="lg" />{' '}
+              <Text style={globalStyles.textWhite}>Loading</Text>
             </Modal.Body>
           </Modal.Content>
         </Modal>
@@ -408,7 +424,9 @@ const Order = () => {
               <>
                 <Modal.Body alignItems="center">
                   <Text style={styles.titleText}>Update data failed!</Text>
-                  <Text>{messages.errorMsg}</Text>
+                  <Text style={globalStyles.textWhite}>
+                    {messages.errorMsg}
+                  </Text>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -416,7 +434,7 @@ const Order = () => {
                     onPress={() => {
                       setShowModalUpdate(false);
                     }}>
-                    <Text>Close</Text>
+                    <Text style={globalStyles.textWhite}>Close</Text>
                   </Button>
                 </Modal.Footer>
               </>
@@ -434,7 +452,7 @@ const Order = () => {
                     onPress={() => {
                       setShowModalUpdate(false);
                     }}>
-                    <Text>Close</Text>
+                    <Text style={globalStyles.textWhite}>Close</Text>
                   </ButtonNB>
                 </Modal.Footer>
               </>
@@ -458,10 +476,10 @@ const Order = () => {
                 onPress={() => {
                   setShowModalConfirmDelete(false);
                 }}>
-                <Text>Close</Text>
+                <Text style={globalStyles.textWhite}>Close</Text>
               </ButtonNB>
               <ButtonNB colorScheme="danger" onPress={handleDelete}>
-                <Text>Delete</Text>
+                <Text style={globalStyles.textWhite}>Delete</Text>
               </ButtonNB>
             </Modal.Footer>
           </Modal.Content>
@@ -482,7 +500,9 @@ const Order = () => {
               <>
                 <Modal.Body alignItems="center">
                   <Text style={styles.titleText}>Delete data failed!</Text>
-                  <Text>{messages.errorMsg}</Text>
+                  <Text style={globalStyles.textWhite}>
+                    {messages.errorMsg}
+                  </Text>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -490,7 +510,7 @@ const Order = () => {
                     onPress={() => {
                       setShowModalDelete(false);
                     }}>
-                    <Text>Close</Text>
+                    <Text style={globalStyles.textWhite}>Close</Text>
                   </ButtonNB>
                 </Modal.Footer>
               </>
@@ -508,7 +528,7 @@ const Order = () => {
                     onPress={() => {
                       setShowModalDelete(false);
                     }}>
-                    <Text>Close</Text>
+                    <Text style={globalStyles.textWhite}>Close</Text>
                   </ButtonNB>
                 </Modal.Footer>
               </>
